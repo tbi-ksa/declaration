@@ -17,6 +17,14 @@ Every PDF carries a **document ID** in its footer — a SHA-256 over the recorde
 
 ## Phone signing
 
+Exact procedure, as shown on the page under "How phone signing works":
+
+1. **Scan the QR code** with the phone camera. It opens the page on the phone in signing mode with the pairing code filled in (`#sign=<code>` in the address). Fallback: open the page on the phone, tap "signing from a phone?" in the header, type the code.
+2. **The phone announces itself.** With a valid code present it publishes a "connected" ping; the desktop status changes to "Phone connected".
+3. **Sign with a finger** in the box. Clear and redo freely; nothing is sent until step 4.
+4. **Tap "Send to desktop".** The phone publishes the pen strokes (quantised coordinates, a few kilobytes, chunked at 3000 characters) under the pairing code. No image, letterhead or applicant details leave the phone.
+5. **The desktop redraws the strokes** at 1200 px wide into the signature image, places it above the "Signature" line and shows "Signature received". "New code" pairs again.
+
 The desktop shows a QR code and a 6-character pairing code. The phone opens the page with `#sign=<code>`, records the pen strokes and sends them as a few kilobytes of coordinates; the desktop redraws them into the signature image. Transport is a public pub/sub relay (`RELAY` in `index.html`, currently `https://ntfy.sh`), used with `Cache: no` so nothing is stored on the relay; only strokes travel, never the PDF, the letterhead or the applicant's details. The topic is `tbi-decl-<code>` with a 32-character alphabet, so a code is not guessable in practice. To bring the relay in-house, point `RELAY` at a self-hosted ntfy instance; the page needs no other change.
 
 ## Build

@@ -177,6 +177,10 @@ label.f textarea{border:1px solid var(--border);border-radius:6px;padding:8px 10
 .qrbox .qr{background:#fff;padding:10px;border:1px solid var(--border);border-radius:10px;width:172px;height:172px;display:grid;place-items:center}
 .qrbox .qr img,.qrbox .qr canvas{max-width:152px;max-height:152px}
 .code{font-family:var(--font-label);font-weight:700;font-size:28px;letter-spacing:.18em;color:var(--fg-1);margin:4px 0}
+.steps-list{margin:14px 0 0;padding:0 0 0 22px;font-size:13.5px;color:var(--fg-2);line-height:1.55}
+.steps-list li{margin:0 0 6px;padding-left:4px}
+.steps-list li::marker{font-family:var(--font-label);color:var(--azure);font-weight:700}
+.steps-list b{color:var(--fg-1);font-weight:600}
 .docid{font-family:var(--font-label);letter-spacing:.06em;font-size:12.5px;color:var(--fg-2);margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .docid b{color:var(--fg-1);letter-spacing:.1em}
 .verify{margin-top:10px;font-size:13px;line-height:1.6}
@@ -209,7 +213,7 @@ body.phone .phoneview{display:block}
 <div class="phoneview" id="phoneview">
   <span class="eyebrow">Phone signing</span>
   <h2>Sign with your finger</h2>
-  <p>Enter the 6-character code shown on your computer, sign in the box, then send. The signature appears on the desktop preview within a few seconds.</p>
+  <p>Enter the 6-character code shown on your computer, sign in the box, then send. Only your pen strokes travel; the signature appears on the desktop preview within a few seconds.</p>
   <label class="f" style="margin-top:14px">Code from the desktop<input id="phCode" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="ABC123"></label>
   <div class="pad" style="margin-top:14px"><canvas id="phpad"></canvas><div class="line"></div><span class="x">×</span></div>
   <div class="row" style="margin-top:12px;justify-content:space-between"><button class="btn ghost" id="phClear">Clear</button><button class="btn gold" id="phSend">Send to desktop</button></div>
@@ -301,7 +305,16 @@ body.phone .phoneview{display:block}
       <div class="pane on" id="pane-phone">
         <p style="font-size:13px;color:var(--fg-2)">Scan the code with your phone, open the page, enter the code below and sign with your finger. The signature lands here automatically.</p>
         <div class="qrbox"><div class="qr" id="qr"></div><div><span class="eyebrow">Pairing code</span><div class="code" id="pairCode">------</div><div id="pairStatus" style="font-size:12.5px;color:var(--fg-3)">Waiting for the phone…</div><button class="btn ghost sm" style="margin-top:10px" onclick="newPairCode()">New code</button></div></div>
-        <p style="font-size:12px;color:var(--fg-3);margin-top:10px" id="pairNote">If the link does not open on the phone, open this page address there and tap "signing from a phone?", then enter the code.</p>
+        <details class="adv" open><summary>How phone signing works</summary>
+          <ol class="steps-list">
+            <li><b>Scan the QR code</b> with the phone camera. It opens this page on the phone in signing mode with the pairing code already filled in. If the camera cannot read it, open the same page address on the phone, tap "signing from a phone?" in the header and type the code.</li>
+            <li><b>The phone announces itself.</b> As soon as a valid code is present it sends a short "connected" ping and the status here changes to "Phone connected".</li>
+            <li><b>Sign with a finger</b> in the box on the phone. Clear and redo as often as needed; nothing is sent yet.</li>
+            <li><b>Tap "Send to desktop".</b> The phone sends only the pen strokes, a few kilobytes of coordinates, through a relay under the pairing code. No image, no letterhead and none of the applicant's details leave the phone.</li>
+            <li><b>The desktop redraws the strokes</b> into a high-resolution signature, places it above the "Signature" line on the preview and shows "Signature received". Drag it to adjust; use "New code" to pair again.</li>
+          </ol>
+          <p style="font-size:12px;color:var(--fg-3);margin:0 0 12px">The relay keeps nothing: messages are sent with caching off and expire the moment they are delivered. The code uses a 32-character alphabet, so it is not guessable in practice. A code is valid only while this tab stays open.</p>
+        </details>
       </div>
       <div class="sigprev" id="sigPrev" hidden><img id="sigImg" alt="Chosen signature"><div style="flex:1;font-size:12.5px;color:var(--fg-2)">Signature ready · drag it on the preview to fine-tune</div><button class="btn ghost sm" onclick="clearSig()">Remove</button></div>
       <div class="range"><div class="lbl"><span>Signature width</span><span class="v" id="sigWV">150 pt</span></div><input type="range" id="sigW" min="80" max="260" value="150"></div>
