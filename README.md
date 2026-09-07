@@ -10,10 +10,14 @@ An applicant fills the declaration of experience required for admission, prints 
 |------|--------------|
 | **Your details** | Cohort (Jeddah · Riyadh · Dammam), name, company, industry, years, designation, place, date. Programme wording is editable per cohort. |
 | **Company letterhead** | Upload a letterhead PDF; the letter prints on page 1. The header and footer are detected automatically and the text start position defaults from them; a slider keeps manual control. |
-| **Signature and stamp** | Draw, type or upload a signature. Upload a stamp image; white background is removed on export. Both are dragged into position on the live preview. |
+| **Signature and stamp** | Sign from a phone (scan the QR code, sign with a finger, the signature lands on the desktop), or draw, type or upload a signature. Upload a stamp image; white background is removed on export. Both are dragged into position on the live preview. |
 | **Review and export** | Checklist of every blank, then a signed PDF named `Declaration-of-Experience-<name>-<date>.pdf`. |
 
 Every PDF carries a **document ID** in its footer — a SHA-256 over the recorded fields and digests of the signature, stamp and letterhead — with the same record embedded in the PDF metadata. The "Verify a received PDF" panel in step 4 lets admissions confirm a received file's record matches its ID. This is an integrity check against edited copies, not a cryptographic signature.
+
+## Phone signing
+
+The desktop shows a QR code and a 6-character pairing code. The phone opens the page with `#sign=<code>`, records the pen strokes and sends them as a few kilobytes of coordinates; the desktop redraws them into the signature image. Transport is a public pub/sub relay (`RELAY` in `index.html`, currently `https://ntfy.sh`), used with `Cache: no` so nothing is stored on the relay; only strokes travel, never the PDF, the letterhead or the applicant's details. The topic is `tbi-decl-<code>` with a 32-character alphabet, so a code is not guessable in practice. To bring the relay in-house, point `RELAY` at a self-hosted ntfy instance; the page needs no other change.
 
 ## Build
 
@@ -23,7 +27,7 @@ There is no build. `index.html` is the whole site; `fonts/` holds the self-hoste
 python3 -m http.server 8080
 ```
 
-Libraries load from cdnjs at pinned versions: pdf-lib 1.17.1 (PDF assembly), pdf.js 3.11.174 (live preview), qrcodejs 1.0.0.
+Libraries load from cdnjs at pinned versions: pdf-lib 1.17.1 (PDF assembly), pdf.js 3.11.174 (live preview), qrcodejs 1.0.0 (pairing QR).
 
 ## Deploy
 

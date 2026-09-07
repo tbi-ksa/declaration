@@ -203,7 +203,7 @@ body.phone .phoneview{display:block}
     <span class="eyebrow">B International Management Consulting · Executive PGDBM · Pearson UK Level 7</span>
     <h1>Entrepreneur declaration of experience</h1>
   </div>
-  <div class="meta"><span id="cohortMeta">Jeddah cohort</span> · applicant self-service<a href="#" id="phoneLink" hidden></a></div>
+  <div class="meta"><span id="cohortMeta">Jeddah cohort</span> · applicant self-service · <a href="#" id="phoneLink" style="color:#8A94A6;text-decoration:underline">signing from a phone?</a></div>
 </div>
 
 <div class="phoneview" id="phoneview">
@@ -275,7 +275,7 @@ body.phone .phoneview{display:block}
 
   <!-- Step 3 -->
   <section class="step" id="s3">
-    <header><span class="num">3</span><div class="h"><h2>Signature and company stamp</h2><span class="sub">Draw, type or upload · drag either one on the preview to position it</span></div>
+    <header><span class="num">3</span><div class="h"><h2>Signature and company stamp</h2><span class="sub">Sign from your phone, draw, type or upload · drag either one on the preview to position it</span></div>
       <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg></header>
     <div class="body">
       <span class="eyebrow" style="display:block;margin-top:14px">Signature</span>
@@ -301,7 +301,7 @@ body.phone .phoneview{display:block}
       <div class="pane on" id="pane-phone">
         <p style="font-size:13px;color:var(--fg-2)">Scan the code with your phone, open the page, enter the code below and sign with your finger. The signature lands here automatically.</p>
         <div class="qrbox"><div class="qr" id="qr"></div><div><span class="eyebrow">Pairing code</span><div class="code" id="pairCode">------</div><div id="pairStatus" style="font-size:12.5px;color:var(--fg-3)">Waiting for the phone…</div><button class="btn ghost sm" style="margin-top:10px" onclick="newPairCode()">New code</button></div></div>
-        <p style="font-size:12px;color:var(--fg-3);margin-top:10px">The phone must be signed in to the same Claude organisation as this page. If the link does not open there, the applicant can open the same page address and tap "signing from a phone?".</p>
+        <p style="font-size:12px;color:var(--fg-3);margin-top:10px" id="pairNote">If the link does not open on the phone, open this page address there and tap "signing from a phone?", then enter the code.</p>
       </div>
       <div class="sigprev" id="sigPrev" hidden><img id="sigImg" alt="Chosen signature"><div style="flex:1;font-size:12.5px;color:var(--fg-2)">Signature ready · drag it on the preview to fine-tune</div><button class="btn ghost sm" onclick="clearSig()">Remove</button></div>
       <div class="range"><div class="lbl"><span>Signature width</span><span class="v" id="sigWV">150 pt</span></div><input type="range" id="sigW" min="80" max="260" value="150"></div>
@@ -374,6 +374,9 @@ const S={
   sigTab:'phone',cohort:'Jeddah',wording:{},pairCode:'',footY:20
 };
 const ARTIFACT_URL='https://claude.ai/code/artifact/ed6831c0-f311-477e-810c-e66a76009896';
+const PAGE_URL='https://tbi-ksa.github.io/declaration/';            // the address the QR code opens (overridden in the Pages build)
+const RELAY='https://ntfy.sh';         // pub/sub relay used when the shared database is unavailable; swap for a self-hosted ntfy or worker
+const relayTopic=c=>'tbi-decl-'+c.toLowerCase();
 const COHORTS={
   Jeddah:{place:'Jeddah'},Riyadh:{place:'Riyadh'},Dammam:{place:'Dammam'}
 };
@@ -454,7 +457,7 @@ function setSig(d){S.sigData=d;$('sigPrev').hidden=false;$('sigImg').src=d;if(S.
 window.clearSig=()=>{S.sigData=null;$('sigPrev').hidden=true;touch();};
 function readImg(f,cb){if(!/^image\/(png|jpeg)$/.test(f.type)){flash('err','Use a PNG or JPG image.');return;}const r=new FileReader();r.onload=()=>cb(r.result);r.readAsDataURL(f);}
 function trimCanvas(src){const w=src.width,h=src.height,d=src.getContext('2d').getImageData(0,0,w,h).data;let x0=w,y0=h,x1=0,y1=0;for(let y=0;y<h;y++)for(let x=0;x<w;x++){if(d[(y*w+x)*4+3]>10){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}}
-  const p=12;x0=Math.max(0,x0-p);y0=Math.max(0,y0-p);x1=Math.min(w-1,x1+p);y1=Math.min(h-1,y1+p);const c=document.createElement('canvas');c.width=x1-x0+1;c.height=y1-y0+1;c.getContext('2d').drawImage(src,x0,y0,c.width,c.height,0,0,c.width,c.height);return c;}
+  if(x1<x0||y1<y0)throw new Error('blank');const p=12;x0=Math.max(0,x0-p);y0=Math.max(0,y0-p);x1=Math.min(w-1,x1+p);y1=Math.min(h-1,y1+p);const c=document.createElement('canvas');c.width=x1-x0+1;c.height=y1-y0+1;c.getContext('2d').drawImage(src,x0,y0,c.width,c.height,0,0,c.width,c.height);return c;}
 
 /* ---------- stamp ---------- */
 let stRaw=null;
@@ -586,27 +589,48 @@ let pairUnsub=null;
 function randCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';const r=new Uint8Array(6);crypto.getRandomValues(r);for(const b of r)s+=A[b%A.length];return s;}
 window.newPairCode=()=>{S.pairCode=randCode();save();startPairing();};
 async function startPairing(){if(!S.pairCode){S.pairCode=randCode();save();}$('pairCode').textContent=S.pairCode;
-  const q=$('qr');q.innerHTML='';try{new QRCode(q,{text:ARTIFACT_URL+'#sign='+S.pairCode,width:152,height:152,colorDark:'#091E3D',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}catch(e){q.textContent='QR unavailable';}
-  if(pairUnsub){pairUnsub();pairUnsub=null;}const db=await getDb();if(!db){$('pairStatus').textContent='Phone signing is unavailable in this view (shared database not granted).';return;}
+  const q=$('qr');q.innerHTML='';try{new QRCode(q,{text:PAGE_URL+'#sign='+S.pairCode,width:152,height:152,colorDark:'#091E3D',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}catch(e){q.textContent='QR unavailable';}
+  if(pairUnsub){pairUnsub();pairUnsub=null;}const db=await getDb();if(!db){startRelay(S.pairCode);return;}
   $('pairStatus').textContent='Waiting for the phone…';const ref=db.doc('handoff/'+S.pairCode);
   pairUnsub=ref.onSnapshot(async snap=>{const d=snap.exists?snap.data():null;if(d&&d.sig&&typeof d.sig==='string'&&d.sig.startsWith('data:image/png;base64,')){setSig(d.sig);$('pairStatus').textContent='Signature received from the phone.';try{await ref.delete();}catch(e){}if(pairUnsub){pairUnsub();pairUnsub=null;}}},
     err=>{$('pairStatus').textContent='Connection lost. Press "New code" to retry.';});}
 
+/* relay transport (no database): strokes travel as small JSON chunks, never cached on the relay */
+let relayES=null;
+function startRelay(code){if(relayES){relayES.close();relayES=null;}const chunks={};let total=0;$('pairStatus').textContent='Waiting for the phone…';
+  try{relayES=new EventSource(RELAY+'/'+relayTopic(code)+'/sse');}catch(e){$('pairStatus').textContent='Relay unavailable on this network.';return;}
+  relayES.onmessage=e=>{try{const env=JSON.parse(e.data);if(env.event&&env.event!=='message')return;const m=JSON.parse(env.message);
+    if(m.t==='hello'){$('pairStatus').textContent='Phone connected. Waiting for the signature…';return;}
+    if(m.t==='sig'){chunks[m.seq]=m.d;total=m.total;if(Object.keys(chunks).length===total){const json=Array.from({length:total},(_,i)=>chunks[i+1]).join('');const strokes=JSON.parse(json);try{setSig(strokesToPng(strokes));$('pairStatus').textContent='Signature received from the phone.';relayES.close();relayES=null;}catch(e2){$('pairStatus').textContent='A signature arrived but could not be read. Ask the phone to clear and sign again.';for(const k in chunks)delete chunks[k];}}}}catch(err){}};
+  relayES.onerror=()=>{if(relayES)$('pairStatus').textContent='Relay connection interrupted; reconnecting…';};
+  pairUnsub=()=>{if(relayES){relayES.close();relayES=null;}};}
+async function relayPost(code,obj){const r=await fetch(RELAY+'/'+relayTopic(code),{method:'POST',headers:{'Cache':'no','Firebase':'no'},body:JSON.stringify(obj)});if(!r.ok)throw new Error('relay '+r.status);}
+async function relaySendStrokes(code,strokes){const json=JSON.stringify(strokes);const size=3000;const total=Math.ceil(json.length/size);for(let i=0;i<total;i++)await relayPost(code,{t:'sig',seq:i+1,total,d:json.slice(i*size,(i+1)*size)});}
+function strokesToPng(o){if(!o||!Number.isFinite(o.h)||!Array.isArray(o.s)||!o.s.length)throw new Error('bad strokes');const cw=1200,ch=Math.max(60,Math.round(cw*o.h/1000));const c=document.createElement('canvas');c.width=cw;c.height=ch;const x=c.getContext('2d');const k=cw/1000;x.lineCap='round';x.lineJoin='round';x.strokeStyle='#0B1F4A';x.lineWidth=Math.max(3,2.6*k*(1000/o.w));
+  for(const s of o.s){if(s.length<2)continue;x.beginPath();x.moveTo(s[0]*k,s[1]*k);if(s.length===2)x.lineTo(s[0]*k+.1,s[1]*k);for(let i=2;i<s.length;i+=2)x.lineTo(s[i]*k,s[i+1]*k);x.stroke();}
+  return trimCanvas(c).toDataURL('image/png');}
+
 /* phone side */
-const php=$('phpad'),phc=php.getContext('2d');let phDraw=false,phLast=null,phDirty=false;
-function phSize(){const r=php.parentElement.getBoundingClientRect();if(!r.width)return;const dpr=window.devicePixelRatio||1;php.width=r.width*dpr;php.height=r.height*dpr;phc.setTransform(dpr,0,0,dpr,0,0);phc.lineCap='round';phc.lineJoin='round';phc.strokeStyle='#0B1F4A';phc.lineWidth=2.6;phDirty=false;}
+const php=$('phpad'),phc=php.getContext('2d');let phDraw=false,phLast=null,phDirty=false,phStrokes=[];
+const phDims=()=>{const r=php.getBoundingClientRect();const dpr=window.devicePixelRatio||1;const w=r.width||php.width/dpr||1,h=r.height||php.height/dpr||1;return {w,h};};
+const phQ=p=>{const {w}=phDims();return [Math.round(p.x/w*1000),Math.round(p.y/w*1000)];};
+function phSize(){const r=php.parentElement.getBoundingClientRect();if(!r.width)return;const dpr=window.devicePixelRatio||1;php.width=r.width*dpr;php.height=r.height*dpr;phc.setTransform(dpr,0,0,dpr,0,0);phc.lineCap='round';phc.lineJoin='round';phc.strokeStyle='#0B1F4A';phc.lineWidth=2.6;phDirty=false;phStrokes=[];}
 new ResizeObserver(phSize).observe(php.parentElement);
 const phPos=e=>{const r=php.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};};
-php.addEventListener('pointerdown',e=>{phDraw=true;phLast=phPos(e);php.setPointerCapture(e.pointerId);phc.beginPath();phc.moveTo(phLast.x,phLast.y);phc.lineTo(phLast.x+.1,phLast.y);phc.stroke();phDirty=true;});
-php.addEventListener('pointermove',e=>{if(!phDraw)return;const p=phPos(e);phc.beginPath();phc.moveTo(phLast.x,phLast.y);phc.lineTo(p.x,p.y);phc.stroke();phLast=p;});
+php.addEventListener('pointerdown',e=>{phDraw=true;phLast=phPos(e);php.setPointerCapture(e.pointerId);phc.beginPath();phc.moveTo(phLast.x,phLast.y);phc.lineTo(phLast.x+.1,phLast.y);phc.stroke();phDirty=true;phStrokes.push(phQ(phLast));});
+php.addEventListener('pointermove',e=>{if(!phDraw)return;const p=phPos(e);phc.beginPath();phc.moveTo(phLast.x,phLast.y);phc.lineTo(p.x,p.y);phc.stroke();phLast=p;const s=phStrokes[phStrokes.length-1];if(s)s.push(...phQ(p));});
 ['pointerup','pointercancel','pointerleave'].forEach(ev=>php.addEventListener(ev,()=>{phDraw=false;}));
-$('phClear').addEventListener('click',()=>{phc.clearRect(0,0,php.width,php.height);phDirty=false;});
+$('phClear').addEventListener('click',()=>{phc.clearRect(0,0,php.width,php.height);phDirty=false;phStrokes=[];});
+$('phCode').addEventListener('input',()=>{const c=$('phCode').value.trim().toUpperCase();if(c.length===6)phHello(c);});
+let phHelloSent='';async function phHello(code){if(phHelloSent===code)return;phHelloSent=code;const db=await getDb();if(db)return;try{await relayPost(code,{t:'hello'});}catch(e){}}
 function phFlash(k,m){const n=$('phNotice');n.className='notice show '+k;n.textContent=m;}
 $('phSend').addEventListener('click',async()=>{const code=$('phCode').value.trim().toUpperCase();if(code.length!==6){phFlash('warn','Enter the 6-character code from the desktop.');return;}if(!phDirty){phFlash('warn','Sign in the box first.');return;}
-  const db=await getDb();if(!db){phFlash('err','The shared database is unavailable here. Make sure you are signed in to the same Claude organisation, then reload.');return;}
-  const sig=trimCanvas(php).toDataURL('image/png');try{$('phSend').disabled=true;await db.doc('handoff/'+code).set({sig,at:new Date().toISOString()});phFlash('ok','Sent. Return to your computer; the signature is already on the preview.');}
+  const db=await getDb();try{$('phSend').disabled=true;
+    if(db){const sig=trimCanvas(php).toDataURL('image/png');await db.doc('handoff/'+code).set({sig,at:new Date().toISOString()});}
+    else{const {w,h}=phDims();const s=phStrokes.filter(st=>st.length>=2&&st.every(Number.isFinite));if(!s.length)throw Object.assign(new Error('empty'),{code:'empty'});await relaySendStrokes(code,{w:1000,h:Math.round(h/w*1000),s});}
+    phFlash('ok','Sent. Return to your computer; the signature is already on the preview.');}
   catch(e){phFlash('err','Could not send ('+(e&&e.code||'error')+'). Check the code and try again.');}$('phSend').disabled=false;});
-function enterPhone(code){document.body.classList.add('phone');if(code)$('phCode').value=code;setTimeout(phSize,50);}
+function enterPhone(code){document.body.classList.add('phone');if(code){$('phCode').value=code;phHello(code);}setTimeout(phSize,50);}
 $('phoneLink').addEventListener('click',e=>{e.preventDefault();enterPhone('');});
 $('phExit').addEventListener('click',e=>{e.preventDefault();document.body.classList.remove('phone');});
 
@@ -621,10 +645,8 @@ setPaper(S.paper);if(S.lhBytes)showLhCard(0);
 if(S.sigData){$('sigPrev').hidden=false;$('sigImg').src=S.sigData;}
 if(S.stData){$('stPrev').hidden=false;$('stImg').src=S.stData;stRaw=S.stData;}
 setCohort(S.cohort||'Jeddah');
-const HAS_RT=!!(window.claude&&window.claude.use);
-if(!HAS_RT){document.querySelector('[data-t="phone"]').style.display='none';$('phoneLink').parentElement.removeChild($('phoneLink'));if(S.sigTab==='phone')S.sigTab='draw';}
-sigTab(S.sigTab||(HAS_RT?'phone':'draw'));
-const hm=(location.hash||'').match(/sign=([A-Za-z0-9]{6})/);if(hm)enterPhone(hm[1].toUpperCase());
+sigTab(S.sigTab||'phone');
+const hashCode=()=>{const m=(location.hash||'').match(/sign=([A-Za-z0-9]{6})/);return m?m[1].toUpperCase():'';};if(hashCode())enterPhone(hashCode());window.addEventListener('hashchange',()=>{const c=hashCode();if(c)enterPhone(c);});
 markSteps();render();
 })();
 </script>
