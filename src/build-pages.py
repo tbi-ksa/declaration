@@ -6,7 +6,6 @@ def rep(old,new):
     assert t.count(old)==1,old[:60]; t=t.replace(old,new)
 rep("""    if(!dl){flash('err','Saving files is not available in this view. Open the page in the Claude app or browser and try again.');btn.disabled=false;return;}""",
 """    if(!dl){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));a.download=fname;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);flash('ok','Saved as '+fname+'. Send it to TBI admissions with your application.');btn.disabled=false;return;}""")
-rep("const PAGE_URL=ARTIFACT_URL;","const PAGE_URL='https://tbi-ksa.github.io/declaration/';")
 ff="""/* self-hosted brand faces (same set as tbi-ksa/insights) */
 @font-face{font-family:"Avenir Next";src:url("fonts/Avenir_Next_Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"Avenir Next";src:url("fonts/Avenir_Next_Italic.otf") format("opentype");font-weight:400;font-style:italic;font-display:swap}

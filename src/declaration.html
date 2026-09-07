@@ -157,28 +157,12 @@ details.adv summary::after{content:'+';font-family:var(--font-label);color:var(-
 details.adv[open] summary::after{content:'−'}
 details.adv .grid{margin-top:4px;margin-bottom:14px}
 label.f textarea{border:1px solid var(--border);border-radius:6px;padding:8px 10px;background:var(--bg-surface);color:var(--fg-1);font-weight:400;font-size:13.5px;resize:vertical;min-height:64px;line-height:1.5}
-.qrbox{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:12px}
-.qrbox .qr{background:#fff;padding:10px;border:1px solid var(--border);border-radius:10px;width:172px;height:172px;display:grid;place-items:center}
-.qrbox .qr img,.qrbox .qr canvas{max-width:152px;max-height:152px}
-.code{font-family:var(--font-label);font-weight:700;font-size:28px;letter-spacing:.18em;color:var(--fg-1);margin:4px 0}
-.steps-list{margin:14px 0 0;padding:0 0 0 22px;font-size:13.5px;color:var(--fg-2);line-height:1.55}
-.steps-list li{margin:0 0 6px;padding-left:4px}
-.steps-list li::marker{font-family:var(--font-label);color:var(--azure);font-weight:700}
-.steps-list b{color:var(--fg-1);font-weight:600}
 .docid{font-family:var(--font-label);letter-spacing:.06em;font-size:12.5px;color:var(--fg-2);margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .docid b{color:var(--fg-1);letter-spacing:.1em}
 .verify{margin-top:10px;font-size:13px;line-height:1.6}
 .verify table{border-collapse:collapse;width:100%;margin-top:8px;font-size:12.5px}
 .verify td{padding:4px 0;border-bottom:1px solid var(--border);vertical-align:top}
 .verify td:first-child{color:var(--fg-3);width:38%}
-/* phone signing view */
-body.phone .wrap,body.phone .bar .meta{display:none}
-.phoneview{display:none;max-width:560px;margin:0 auto;padding:20px 16px 48px}
-body.phone .phoneview{display:block}
-.phoneview .pad{height:240px}
-.phoneview h2{font-size:20px;margin-bottom:4px}
-.phoneview p{color:var(--fg-2);font-size:13.5px}
-.phoneview label.f input{font-family:var(--font-label);letter-spacing:.2em;font-size:20px;text-transform:uppercase;text-align:center;height:48px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -188,19 +172,9 @@ body.phone .phoneview{display:block}
     <span class="eyebrow">B International Management Consulting · Executive PGDBM · Pearson UK Level 7</span>
     <h1>Entrepreneur declaration of experience</h1>
   </div>
-  <div class="meta"><span id="cohortMeta">Jeddah cohort</span> · applicant self-service · <a href="#" id="phoneLink" style="color:#8A94A6;text-decoration:underline">signing from a phone?</a></div>
+  <div class="meta"><span id="cohortMeta">Jeddah cohort</span> · applicant self-service</div>
 </div>
 
-<div class="phoneview" id="phoneview">
-  <span class="eyebrow">Phone signing</span>
-  <h2>Sign with your finger</h2>
-  <p>Enter the 6-character code shown on your computer, sign in the box, then send. Only your pen strokes travel; the signature appears on the desktop preview within a few seconds.</p>
-  <label class="f" style="margin-top:14px">Code from the desktop<input id="phCode" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="ABC123"></label>
-  <div class="pad" style="margin-top:14px"><canvas id="phpad"></canvas><div class="line"></div><span class="x">×</span></div>
-  <div class="row" style="margin-top:12px;justify-content:space-between"><button class="btn ghost" id="phClear">Clear</button><button class="btn gold" id="phSend">Send to desktop</button></div>
-  <div class="notice" id="phNotice"></div>
-  <p style="margin-top:18px;font-size:12px"><a href="#" id="phExit" style="color:var(--link)">Back to the full form</a></p>
-</div>
 <div class="wrap">
 <div class="steps">
 
@@ -260,7 +234,7 @@ body.phone .phoneview{display:block}
 
   <!-- Step 3 -->
   <section class="step" id="s3">
-    <header><span class="num">3</span><div class="h"><h2>Signature and company stamp</h2><span class="sub">Draw, type, upload or sign from your phone · drag either one on the preview to position it</span></div>
+    <header><span class="num">3</span><div class="h"><h2>Signature and company stamp</h2><span class="sub">Draw, type or upload · drag either one on the preview to position it</span></div>
       <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg></header>
     <div class="body">
       <span class="eyebrow" style="display:block;margin-top:14px">Signature</span>
@@ -268,7 +242,6 @@ body.phone .phoneview{display:block}
         <button class="on" data-t="draw" onclick="sigTab('draw')">Draw</button>
         <button data-t="type" onclick="sigTab('type')">Type</button>
         <button data-t="upload" onclick="sigTab('upload')">Upload</button>
-        <button data-t="phone" onclick="sigTab('phone')">From my phone</button>
       </div>
       <div class="pane on" id="pane-draw">
         <div class="pad"><canvas id="padc"></canvas><div class="line"></div><span class="x">×</span></div>
@@ -282,20 +255,6 @@ body.phone .phoneview{display:block}
       <div class="pane" id="pane-upload">
         <div class="drop" id="sigDrop" style="margin-top:0"><input type="file" id="sigFile" accept="image/png,image/jpeg">
           <strong>Drop a signature image</strong> or click to choose<small>PNG with transparent background prints cleanest · JPG accepted</small></div>
-      </div>
-      <div class="pane" id="pane-phone">
-        <p style="font-size:13px;color:var(--fg-2)">Scan the code with your phone, open the page, enter the code below and sign with your finger. The signature lands here automatically.</p>
-        <div class="qrbox"><div class="qr" id="qr"></div><div><span class="eyebrow">Pairing code</span><div class="code" id="pairCode">------</div><div id="pairStatus" style="font-size:12.5px;color:var(--fg-3)">Waiting for the phone…</div><button class="btn ghost sm" style="margin-top:10px" onclick="newPairCode()">New code</button></div></div>
-        <details class="adv" open><summary>How phone signing works</summary>
-          <ol class="steps-list">
-            <li><b>Scan the QR code</b> with the phone camera. It opens this page on the phone in signing mode with the pairing code already filled in. If the camera cannot read it, open the same page address on the phone, tap "signing from a phone?" in the header and type the code.</li>
-            <li><b>The phone announces itself.</b> As soon as a valid code is present it sends a short "connected" ping and the status here changes to "Phone connected".</li>
-            <li><b>Sign with a finger</b> in the box on the phone. Clear and redo as often as needed; nothing is sent yet.</li>
-            <li><b>Tap "Send to desktop".</b> The phone sends only the pen strokes, a few kilobytes of coordinates, through a relay under the pairing code. No image, no letterhead and none of the applicant's details leave the phone.</li>
-            <li><b>The desktop redraws the strokes</b> into a high-resolution signature, places it above the "Signature" line on the preview and shows "Signature received". Drag it to adjust; use "New code" to pair again.</li>
-          </ol>
-          <p style="font-size:12px;color:var(--fg-3);margin:0 0 12px">The relay keeps nothing: messages are sent with caching off and expire the moment they are delivered. The code uses a 32-character alphabet, so it is not guessable in practice. A code is valid only while this tab stays open.</p>
-        </details>
       </div>
       <div class="sigprev" id="sigPrev" hidden><img id="sigImg" alt="Chosen signature"><div style="flex:1;font-size:12.5px;color:var(--fg-2)">Signature ready · drag it on the preview to fine-tune</div><button class="btn ghost sm" onclick="clearSig()">Remove</button></div>
       <div class="range"><div class="lbl"><span>Signature width</span><span class="v" id="sigWV">150 pt</span></div><input type="range" id="sigW" min="80" max="260" value="150"></div>
@@ -351,7 +310,6 @@ body.phone .phoneview{display:block}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function(){
 'use strict';
@@ -365,12 +323,8 @@ const S={
   paper:'letterhead',lhBytes:null,lhName:'',lhPage:{w:595.28,h:841.89},top:150,side:64,
   sigData:null,sigW:150,sigX:null,sigY:null,          // x,y = top-left fraction of page
   stData:null,stW:110,stR:-6,stO:90,stKey:true,stX:null,stY:null,
-  sigTab:'draw',cohort:'Jeddah',wording:{},pairCode:'',footY:20
+  sigTab:'draw',cohort:'Jeddah',wording:{},footY:20
 };
-const ARTIFACT_URL='https://claude.ai/code/artifact/ed6831c0-f311-477e-810c-e66a76009896';
-const PAGE_URL=ARTIFACT_URL;            // the address the QR code opens (overridden in the Pages build)
-const RELAY='https://ntfy.sh';         // pub/sub relay used when the shared database is unavailable; swap for a self-hosted ntfy or worker
-const relayTopic=c=>'tbi-decl-'+c.toLowerCase();
 const COHORTS={
   Jeddah:{place:'Jeddah'},Riyadh:{place:'Riyadh'},Dammam:{place:'Dammam'}
 };
@@ -433,7 +387,7 @@ async function showLhCard(size){$('lhCard').hidden=false;$('lhDrop').style.displ
 window.clearLetterhead=()=>{S.lhBytes=null;S.lhName='';S.footY=20;$('topHint').textContent='Set automatically from the letterhead when you upload it; adjust if needed';S.lhPage={w:595.28,h:841.89};$('lhCard').hidden=true;$('lhDrop').style.display='';touch();};
 
 /* ---------- signature ---------- */
-window.sigTab=t=>{S.sigTab=t;document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id==='pane-'+t));if(t==='draw')padSize();if(t==='phone')startPairing();};
+window.sigTab=t=>{S.sigTab=t;document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id==='pane-'+t));if(t==='draw')padSize();};
 const pad=$('padc'),pctx=pad.getContext('2d');let drawing=false,last=null,padDirty=false;
 function padSize(){const r=pad.parentElement.getBoundingClientRect();if(r.width===0)return;const dpr=window.devicePixelRatio||1;const img=padDirty?pctx.getImageData(0,0,pad.width,pad.height):null;pad.width=r.width*dpr;pad.height=r.height*dpr;pctx.setTransform(dpr,0,0,dpr,0,0);pctx.lineCap='round';pctx.lineJoin='round';pctx.strokeStyle='#0B1F4A';pctx.lineWidth=2.2;if(img)pctx.putImageData(img,0,0);}
 new ResizeObserver(padSize).observe(pad.parentElement);
@@ -577,57 +531,6 @@ dropzone('vfDrop','vfFile',async f=>{const out=$('vfOut');out.innerHTML='Reading
   out.innerHTML=(ok?'<span style="color:var(--green);font-weight:600">Record is internally consistent.</span> Compare the fields below with the printed letter and the ID in its footer.':'<span style="color:var(--coral);font-weight:600">Record does not match its ID.</span> The embedded record was altered after generation.')+'<table>'+rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+String(r[1]).replace(/</g,'&lt;')+'</td></tr>').join('')+'</table>';}
   catch(e){out.innerHTML='<span style="color:var(--coral)">Could not read that PDF.</span> '+(e.message||'');}});
 
-/* ---------- phone signing handoff (shared database) ---------- */
-let dbP=null;const getDb=()=>dbP||(dbP=(window.claude&&window.claude.use?window.claude.use('db'):Promise.resolve(null)).catch(()=>null));
-let pairUnsub=null;
-function randCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';const r=new Uint8Array(6);crypto.getRandomValues(r);for(const b of r)s+=A[b%A.length];return s;}
-window.newPairCode=()=>{S.pairCode=randCode();save();startPairing();};
-async function startPairing(){if(!S.pairCode){S.pairCode=randCode();save();}$('pairCode').textContent=S.pairCode;
-  const q=$('qr');q.innerHTML='';try{new QRCode(q,{text:PAGE_URL+'#sign='+S.pairCode,width:152,height:152,colorDark:'#091E3D',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}catch(e){q.textContent='QR unavailable';}
-  if(pairUnsub){pairUnsub();pairUnsub=null;}const db=await getDb();if(!db){startRelay(S.pairCode);return;}
-  $('pairStatus').textContent='Waiting for the phone…';const ref=db.doc('handoff/'+S.pairCode);
-  pairUnsub=ref.onSnapshot(async snap=>{const d=snap.exists?snap.data():null;if(d&&d.sig&&typeof d.sig==='string'&&d.sig.startsWith('data:image/png;base64,')){setSig(d.sig);$('pairStatus').textContent='Signature received from the phone.';try{await ref.delete();}catch(e){}if(pairUnsub){pairUnsub();pairUnsub=null;}}},
-    err=>{$('pairStatus').textContent='Connection lost. Press "New code" to retry.';});}
-
-/* relay transport (no database): strokes travel as small JSON chunks, never cached on the relay */
-let relayES=null;
-function startRelay(code){if(relayES){relayES.close();relayES=null;}const chunks={};let total=0;$('pairStatus').textContent='Waiting for the phone…';
-  try{relayES=new EventSource(RELAY+'/'+relayTopic(code)+'/sse');}catch(e){$('pairStatus').textContent='Relay unavailable on this network.';return;}
-  relayES.onmessage=e=>{try{const env=JSON.parse(e.data);if(env.event&&env.event!=='message')return;const m=JSON.parse(env.message);
-    if(m.t==='hello'){$('pairStatus').textContent='Phone connected. Waiting for the signature…';return;}
-    if(m.t==='sig'){chunks[m.seq]=m.d;total=m.total;if(Object.keys(chunks).length===total){const json=Array.from({length:total},(_,i)=>chunks[i+1]).join('');const strokes=JSON.parse(json);try{setSig(strokesToPng(strokes));$('pairStatus').textContent='Signature received from the phone.';relayES.close();relayES=null;}catch(e2){$('pairStatus').textContent='A signature arrived but could not be read. Ask the phone to clear and sign again.';for(const k in chunks)delete chunks[k];}}}}catch(err){}};
-  relayES.onerror=()=>{if(relayES)$('pairStatus').textContent='Relay connection interrupted; reconnecting…';};
-  pairUnsub=()=>{if(relayES){relayES.close();relayES=null;}};}
-async function relayPost(code,obj){const r=await fetch(RELAY+'/'+relayTopic(code),{method:'POST',headers:{'Cache':'no','Firebase':'no'},body:JSON.stringify(obj)});if(!r.ok)throw new Error('relay '+r.status);}
-async function relaySendStrokes(code,strokes){const json=JSON.stringify(strokes);const size=3000;const total=Math.ceil(json.length/size);for(let i=0;i<total;i++)await relayPost(code,{t:'sig',seq:i+1,total,d:json.slice(i*size,(i+1)*size)});}
-function strokesToPng(o){if(!o||!Number.isFinite(o.h)||!Array.isArray(o.s)||!o.s.length)throw new Error('bad strokes');const cw=1200,ch=Math.max(60,Math.round(cw*o.h/1000));const c=document.createElement('canvas');c.width=cw;c.height=ch;const x=c.getContext('2d');const k=cw/1000;x.lineCap='round';x.lineJoin='round';x.strokeStyle='#0B1F4A';x.lineWidth=Math.max(3,2.6*k*(1000/o.w));
-  for(const s of o.s){if(s.length<2)continue;x.beginPath();x.moveTo(s[0]*k,s[1]*k);if(s.length===2)x.lineTo(s[0]*k+.1,s[1]*k);for(let i=2;i<s.length;i+=2)x.lineTo(s[i]*k,s[i+1]*k);x.stroke();}
-  return trimCanvas(c).toDataURL('image/png');}
-
-/* phone side */
-const php=$('phpad'),phc=php.getContext('2d');let phDraw=false,phLast=null,phDirty=false,phStrokes=[];
-const phDims=()=>{const r=php.getBoundingClientRect();const dpr=window.devicePixelRatio||1;const w=r.width||php.width/dpr||1,h=r.height||php.height/dpr||1;return {w,h};};
-const phQ=p=>{const {w}=phDims();return [Math.round(p.x/w*1000),Math.round(p.y/w*1000)];};
-function phSize(){const r=php.parentElement.getBoundingClientRect();if(!r.width)return;const dpr=window.devicePixelRatio||1;php.width=r.width*dpr;php.height=r.height*dpr;phc.setTransform(dpr,0,0,dpr,0,0);phc.lineCap='round';phc.lineJoin='round';phc.strokeStyle='#0B1F4A';phc.lineWidth=2.6;phDirty=false;phStrokes=[];}
-new ResizeObserver(phSize).observe(php.parentElement);
-const phPos=e=>{const r=php.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};};
-php.addEventListener('pointerdown',e=>{phDraw=true;phLast=phPos(e);php.setPointerCapture(e.pointerId);phc.beginPath();phc.moveTo(phLast.x,phLast.y);phc.lineTo(phLast.x+.1,phLast.y);phc.stroke();phDirty=true;phStrokes.push(phQ(phLast));});
-php.addEventListener('pointermove',e=>{if(!phDraw)return;const p=phPos(e);phc.beginPath();phc.moveTo(phLast.x,phLast.y);phc.lineTo(p.x,p.y);phc.stroke();phLast=p;const s=phStrokes[phStrokes.length-1];if(s)s.push(...phQ(p));});
-['pointerup','pointercancel','pointerleave'].forEach(ev=>php.addEventListener(ev,()=>{phDraw=false;}));
-$('phClear').addEventListener('click',()=>{phc.clearRect(0,0,php.width,php.height);phDirty=false;phStrokes=[];});
-$('phCode').addEventListener('input',()=>{const c=$('phCode').value.trim().toUpperCase();if(c.length===6)phHello(c);});
-let phHelloSent='';async function phHello(code){if(phHelloSent===code)return;phHelloSent=code;const db=await getDb();if(db)return;try{await relayPost(code,{t:'hello'});}catch(e){}}
-function phFlash(k,m){const n=$('phNotice');n.className='notice show '+k;n.textContent=m;}
-$('phSend').addEventListener('click',async()=>{const code=$('phCode').value.trim().toUpperCase();if(code.length!==6){phFlash('warn','Enter the 6-character code from the desktop.');return;}if(!phDirty){phFlash('warn','Sign in the box first.');return;}
-  const db=await getDb();try{$('phSend').disabled=true;
-    if(db){const sig=trimCanvas(php).toDataURL('image/png');await db.doc('handoff/'+code).set({sig,at:new Date().toISOString()});}
-    else{const {w,h}=phDims();const s=phStrokes.filter(st=>st.length>=2&&st.every(Number.isFinite));if(!s.length)throw Object.assign(new Error('empty'),{code:'empty'});await relaySendStrokes(code,{w:1000,h:Math.round(h/w*1000),s});}
-    phFlash('ok','Sent. Return to your computer; the signature is already on the preview.');}
-  catch(e){phFlash('err','Could not send ('+(e&&e.code||'error')+'). Check the code and try again.');}$('phSend').disabled=false;});
-function enterPhone(code){document.body.classList.add('phone');if(code){$('phCode').value=code;phHello(code);}setTimeout(phSize,50);}
-$('phoneLink').addEventListener('click',e=>{e.preventDefault();enterPhone('');});
-$('phExit').addEventListener('click',e=>{e.preventDefault();document.body.classList.remove('phone');});
-
 window.resetAll=()=>{if(!confirm('Clear all entries, the letterhead, signature and stamp?'))return;try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+':lh');}catch(e){}location.reload();};
 
 /* ---------- boot ---------- */
@@ -639,8 +542,7 @@ setPaper(S.paper);if(S.lhBytes)showLhCard(0);
 if(S.sigData){$('sigPrev').hidden=false;$('sigImg').src=S.sigData;}
 if(S.stData){$('stPrev').hidden=false;$('stImg').src=S.stData;stRaw=S.stData;}
 setCohort(S.cohort||'Jeddah');
-sigTab(S.sigTab||'draw');
-const hashCode=()=>{const m=(location.hash||'').match(/sign=([A-Za-z0-9]{6})/);return m?m[1].toUpperCase():'';};if(hashCode())enterPhone(hashCode());window.addEventListener('hashchange',()=>{const c=hashCode();if(c)enterPhone(c);});
+sigTab(['draw','type','upload'].includes(S.sigTab)?S.sigTab:'draw');
 markSteps();render();
 })();
 </script>
