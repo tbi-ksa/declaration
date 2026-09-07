@@ -279,17 +279,17 @@ body.phone .phoneview{display:block}
 
   <!-- Step 3 -->
   <section class="step" id="s3">
-    <header><span class="num">3</span><div class="h"><h2>Signature and company stamp</h2><span class="sub">Sign from your phone, draw, type or upload · drag either one on the preview to position it</span></div>
+    <header><span class="num">3</span><div class="h"><h2>Signature and company stamp</h2><span class="sub">Draw, type, upload or sign from your phone · drag either one on the preview to position it</span></div>
       <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg></header>
     <div class="body">
       <span class="eyebrow" style="display:block;margin-top:14px">Signature</span>
       <div class="tabs" role="tablist">
-        <button class="on" data-t="phone" onclick="sigTab('phone')">From my phone</button>
-        <button data-t="draw" onclick="sigTab('draw')">Draw</button>
+        <button class="on" data-t="draw" onclick="sigTab('draw')">Draw</button>
         <button data-t="type" onclick="sigTab('type')">Type</button>
         <button data-t="upload" onclick="sigTab('upload')">Upload</button>
+        <button data-t="phone" onclick="sigTab('phone')">From my phone</button>
       </div>
-      <div class="pane" id="pane-draw">
+      <div class="pane on" id="pane-draw">
         <div class="pad"><canvas id="padc"></canvas><div class="line"></div><span class="x">×</span></div>
         <div class="row" style="margin-top:10px"><button class="btn ghost sm" onclick="padClear()">Clear</button><button class="btn sm" onclick="padUse()">Use this signature</button><span style="font-size:12px;color:var(--fg-3)">Mouse, trackpad or finger</span></div>
       </div>
@@ -302,7 +302,7 @@ body.phone .phoneview{display:block}
         <div class="drop" id="sigDrop" style="margin-top:0"><input type="file" id="sigFile" accept="image/png,image/jpeg">
           <strong>Drop a signature image</strong> or click to choose<small>PNG with transparent background prints cleanest · JPG accepted</small></div>
       </div>
-      <div class="pane on" id="pane-phone">
+      <div class="pane" id="pane-phone">
         <p style="font-size:13px;color:var(--fg-2)">Scan the code with your phone, open the page, enter the code below and sign with your finger. The signature lands here automatically.</p>
         <div class="qrbox"><div class="qr" id="qr"></div><div><span class="eyebrow">Pairing code</span><div class="code" id="pairCode">------</div><div id="pairStatus" style="font-size:12.5px;color:var(--fg-3)">Waiting for the phone…</div><button class="btn ghost sm" style="margin-top:10px" onclick="newPairCode()">New code</button></div></div>
         <details class="adv" open><summary>How phone signing works</summary>
@@ -384,7 +384,7 @@ const S={
   paper:'letterhead',lhBytes:null,lhName:'',lhPage:{w:595.28,h:841.89},top:150,side:64,
   sigData:null,sigW:150,sigX:null,sigY:null,          // x,y = top-left fraction of page
   stData:null,stW:110,stR:-6,stO:90,stKey:true,stX:null,stY:null,
-  sigTab:'phone',cohort:'Jeddah',wording:{},pairCode:'',footY:20
+  sigTab:'draw',cohort:'Jeddah',wording:{},pairCode:'',footY:20
 };
 const ARTIFACT_URL='https://claude.ai/code/artifact/ed6831c0-f311-477e-810c-e66a76009896';
 const PAGE_URL='https://tbi-ksa.github.io/declaration/';            // the address the QR code opens (overridden in the Pages build)
@@ -658,7 +658,7 @@ setPaper(S.paper);if(S.lhBytes)showLhCard(0);
 if(S.sigData){$('sigPrev').hidden=false;$('sigImg').src=S.sigData;}
 if(S.stData){$('stPrev').hidden=false;$('stImg').src=S.stData;stRaw=S.stData;}
 setCohort(S.cohort||'Jeddah');
-sigTab(S.sigTab||'phone');
+sigTab(S.sigTab||'draw');
 const hashCode=()=>{const m=(location.hash||'').match(/sign=([A-Za-z0-9]{6})/);return m?m[1].toUpperCase():'';};if(hashCode())enterPhone(hashCode());window.addEventListener('hashchange',()=>{const c=hashCode();if(c)enterPhone(c);});
 markSteps();render();
 })();

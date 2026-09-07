@@ -10,7 +10,7 @@ An applicant fills the declaration of experience required for admission, prints 
 |------|--------------|
 | **Your details** | Cohort (Jeddah · Riyadh · Dammam), name, company, industry, years, designation, place, date. Programme wording is editable per cohort. |
 | **Company letterhead** | Upload a letterhead PDF; the letter prints on page 1. The header and footer are detected automatically and the text start position defaults from them; a slider keeps manual control. |
-| **Signature and stamp** | Sign from a phone (scan the QR code, sign with a finger, the signature lands on the desktop), or draw, type or upload a signature. Upload a stamp image; white background is removed on export. Both are dragged into position on the live preview. |
+| **Signature and stamp** | Draw, type or upload a signature, or sign from a phone (scan the QR code, sign with a finger, the signature lands on the desktop). Upload a stamp image; white background is removed on export. Both are dragged into position on the live preview. |
 | **Review and export** | Checklist of every blank, then a signed PDF named `Declaration-of-Experience-<name>-<date>.pdf`. |
 
 Every PDF carries a **document ID** in its footer — a SHA-256 over the recorded fields and digests of the signature, stamp and letterhead — with the same record embedded in the PDF metadata. The "Verify a received PDF" panel in step 4 lets admissions confirm a received file's record matches its ID. This is an integrity check against edited copies, not a cryptographic signature.
