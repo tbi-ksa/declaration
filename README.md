@@ -56,3 +56,11 @@ Sentence case. No exclamation marks, no superlatives. Quiet verb-led CTAs — "S
 ## Related
 
 - [tbi-ksa/insights](https://github.com/tbi-ksa/insights) — TBI Research, market-signal insights and capability guides.
+
+## Source
+
+`src/declaration.html` is the shared source (also published as the claude.ai artifact, where phone signing uses the artifact database). `index.html` is generated from it:
+
+```bash
+python3 src/build-pages.py index.html
+```

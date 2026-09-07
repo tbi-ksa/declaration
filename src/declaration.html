@@ -1,0 +1,646 @@
+<meta charset="utf-8">
+<title>Entrepreneur Declaration of Experience</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap">
+<style>
+:root{
+  --navy:#091E3D; --navy-deep:#061230; --azure:#0068A8; --azure-700:#004E80; --azure-50:#EDF5FB; --azure-100:#D3E8F5;
+  --teal:#00A5AA; --gold:#D4A843; --gold-50:#FAF3E2; --green:#1B8A5A; --coral:#E8654A;
+  --s50:#F7F8FA; --s100:#F0F2F5; --s200:#E2E6EB; --s300:#C7CDD8; --s400:#8A94A6; --s500:#667089; --s600:#4A5568;
+  --bg-page:var(--s100); --bg-surface:#FFFFFF; --bg-sunken:var(--s200); --bg-inverse:var(--navy);
+  --fg-1:var(--navy); --fg-2:var(--s600); --fg-3:var(--s400); --fg-inverse:#F8F8F8; --fg-inverse-2:#8A94A6;
+  --border:var(--s200); --border-strong:var(--s400); --link:var(--azure); --selected:var(--azure-50);
+  --success-tint:rgba(27,138,90,.12); --warn-tint:rgba(212,168,67,.16); --error-tint:rgba(232,101,74,.12);
+  --font-display:"Avenir Next","Avenir","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-body:"Segoe UI",system-ui,-apple-system,"Avenir Next",Roboto,sans-serif;
+  --font-label:"Avenir Next","Segoe UI",system-ui,sans-serif;
+  --shadow-sm:0 1px 3px rgba(9,30,61,.06); --shadow-md:0 4px 16px rgba(9,30,61,.08); --shadow-lg:0 12px 40px rgba(9,30,61,.12);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg-page:#061230; --bg-surface:#0D1F42; --bg-sunken:#112650; --bg-inverse:#112650;
+    --fg-1:#F8F8F8; --fg-2:#C7CDD8; --fg-3:#8A94A6; --border:#1A3058; --border-strong:#3A4F78; --link:#00A5AA; --selected:#112650;
+    --azure-50:#112650; --azure-100:#1A3058; --gold-50:#2A2A1E;
+    --shadow-sm:0 1px 3px rgba(0,0,0,.3); --shadow-md:0 4px 16px rgba(0,0,0,.35); --shadow-lg:0 12px 40px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --bg-page:#061230; --bg-surface:#0D1F42; --bg-sunken:#112650; --bg-inverse:#112650;
+  --fg-1:#F8F8F8; --fg-2:#C7CDD8; --fg-3:#8A94A6; --border:#1A3058; --border-strong:#3A4F78; --link:#00A5AA; --selected:#112650;
+  --azure-50:#112650; --azure-100:#1A3058; --gold-50:#2A2A1E;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.3); --shadow-md:0 4px 16px rgba(0,0,0,.35); --shadow-lg:0 12px 40px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-page);color:var(--fg-1);font-family:var(--font-body);font-size:15px;line-height:1.6}
+h1,h2,h3{font-family:var(--font-display);line-height:1.1;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:clamp(24px,2.6vw,34px);font-weight:600}
+h2{font-size:19px;font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--font-label);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(0,104,168,.12);border-color:var(--azure)!important}
+
+/* App bar */
+.bar{background:var(--navy);color:#F8F8F8;border-left:5px solid var(--azure);padding:14px 28px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.bar svg{height:38px;width:auto;flex:none}
+.bar .t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.bar .eyebrow{color:#8A94A6}
+.bar h1{color:#F8F8F8}
+.bar .meta{margin-left:auto;font-size:12px;color:#8A94A6;font-family:var(--font-label);letter-spacing:.02em}
+
+/* Layout */
+.wrap{max-width:1560px;margin:0 auto;padding:28px 28px 64px;display:grid;grid-template-columns:minmax(360px,520px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:980px){.wrap{grid-template-columns:1fr}.preview-col{position:static!important}}
+
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:16px}
+.step{background:var(--bg-surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-sm)}
+.step>header{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;user-select:none}
+.step .num{flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border-strong);display:grid;place-items:center;font-family:var(--font-label);font-weight:700;font-size:12px;color:var(--fg-2);transition:all .16s var(--ease)}
+.step.done .num{background:var(--green);border-color:var(--green);color:#fff}
+.step.open .num{border-color:var(--azure);color:var(--azure)}
+.step.done.open .num{background:var(--green);border-color:var(--green);color:#fff}
+.step header .h{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+.step header .sub{font-size:13px;color:var(--fg-3)}
+.step header .chev{color:var(--fg-3);transition:transform .16s var(--ease)}
+.step.open header .chev{transform:rotate(180deg)}
+.step .body{display:none;padding:4px 20px 20px;border-top:1px solid var(--border)}
+.step.open .body{display:block}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;margin-top:14px}
+.grid .full{grid-column:1/-1}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:13.5px;font-weight:600;color:var(--fg-2)}
+label.f input,label.f select{height:42px;border:1px solid var(--border);border-radius:6px;padding:0 12px;background:var(--bg-surface);color:var(--fg-1);font-weight:400;font-size:15px}
+label.f input::placeholder{color:var(--fg-3)}
+label.f .hint{font-weight:400;color:var(--fg-3);font-size:11.5px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{height:42px;padding:0 18px;border-radius:10px;border:1px solid var(--navy);background:var(--navy);color:#F8F8F8;cursor:pointer;font-weight:600;font-size:14.5px;display:inline-flex;align-items:center;gap:8px;transition:all .16s var(--ease)}
+.btn:hover{background:#0D2A54}
+.btn:active{transform:scale(.97)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.btn.gold:hover{background:#C99B34}
+.btn.ghost{background:transparent;color:var(--fg-1);border-color:var(--border-strong)}
+.btn.ghost:hover{background:var(--bg-sunken)}
+.btn.sm{height:32px;padding:0 12px;font-size:12.5px;border-radius:8px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Drop zone */
+.drop{margin-top:14px;border:1.5px dashed var(--border-strong);border-radius:10px;padding:18px;text-align:center;color:var(--fg-2);cursor:pointer;transition:all .16s var(--ease);background:var(--bg-surface)}
+.drop:hover,.drop.over{border-color:var(--azure);background:var(--selected)}
+.drop strong{color:var(--fg-1);font-weight:600}
+.drop small{display:block;color:var(--fg-3);margin-top:3px;font-size:12px}
+.drop input{display:none}
+.filecard{display:flex;align-items:center;gap:12px;margin-top:14px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-surface)}
+.filecard .thumb{width:44px;height:60px;border:1px solid var(--border);background:#fff;object-fit:cover;object-position:top;border-radius:3px;flex:none}
+.filecard .n{flex:1;min-width:0}
+.filecard .n b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.filecard .n span{font-size:12px;color:var(--fg-3)}
+
+/* Choice chips */
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:14px}
+.seg button{height:34px;padding:0 14px;border:0;background:transparent;cursor:pointer;font-size:13px;font-weight:600;color:var(--fg-2)}
+.seg button+button{border-left:1px solid var(--border)}
+.seg button.on{background:var(--navy);color:#F8F8F8}
+.tabs{display:flex;gap:18px;border-bottom:1px solid var(--border);margin-top:14px}
+.tabs button{border:0;background:none;padding:8px 0 10px;cursor:pointer;font-weight:600;color:var(--fg-3);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{color:var(--fg-1);border-bottom-color:var(--azure)}
+.pane{display:none;padding-top:14px}
+.pane.on{display:block}
+
+/* Signature pad */
+.pad{position:relative;border:1px solid var(--border);border-radius:10px;background:#fff;height:160px;overflow:hidden;touch-action:none}
+.pad canvas{width:100%;height:100%;display:block;cursor:crosshair}
+.pad .line{position:absolute;left:24px;right:24px;bottom:34px;border-top:1px solid #C7CDD8;pointer-events:none}
+.pad .x{position:absolute;left:12px;bottom:10px;font-family:'Dancing Script',cursive;color:#8A94A6;font-size:16px;pointer-events:none}
+.typed{height:120px;display:grid;place-items:center;border:1px solid var(--border);border-radius:10px;background:#fff;color:#091E3D;font-family:'Dancing Script',cursive;font-size:44px;margin-top:12px;overflow:hidden;padding:0 16px;white-space:nowrap}
+.sigprev{display:flex;align-items:center;gap:12px;margin-top:12px}
+.sigprev img{height:56px;max-width:220px;object-fit:contain;background:#fff;border:1px solid var(--border);border-radius:6px;padding:4px}
+.range{display:flex;flex-direction:column;gap:5px;font-size:12.5px;font-weight:600;color:var(--fg-2);margin-top:12px}
+.range .v{font-family:var(--font-label);color:var(--fg-3);font-weight:600;float:right}
+.range input{width:100%;accent-color:var(--azure)}
+.range .lbl{display:flex;justify-content:space-between}
+
+/* Checklist */
+.check{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.check li{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--fg-2)}
+.check li i{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border-strong);display:grid;place-items:center;flex:none}
+.check li i svg{width:11px;height:11px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;display:none}
+.check li.ok{color:var(--fg-1)}
+.check li.ok i{background:var(--green);border-color:var(--green)}
+.check li.ok i svg{display:block}
+.check li.opt{color:var(--fg-3)}
+.notice{margin-top:14px;padding:10px 12px;border-radius:8px;font-size:13px;display:none;border:1px solid transparent}
+.notice.show{display:block}
+.notice.err{background:var(--error-tint);border-color:rgba(232,101,74,.3);color:var(--fg-1)}
+.notice.ok{background:var(--success-tint);border-color:rgba(27,138,90,.3);color:var(--fg-1)}
+.notice.warn{background:var(--warn-tint);border-color:rgba(212,168,67,.4);color:var(--fg-1)}
+
+/* Preview */
+.preview-col{position:sticky;top:20px}
+.pv-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.pv-head .eyebrow{flex:1}
+.pv-head .st{font-size:12px;color:var(--fg-3);font-family:var(--font-label)}
+.sheet{position:relative;background:#fff;box-shadow:var(--shadow-md);border:1px solid var(--border);margin:0 auto;max-width:100%;width:min(100%,900px);aspect-ratio:210/297;overflow:hidden}
+.sheet canvas{width:100%;height:100%;display:block}
+.sheet .empty{position:absolute;inset:0;display:grid;place-items:center;color:var(--fg-3);font-size:13px}
+.ov{position:absolute;border:1.5px dashed transparent;border-radius:4px;cursor:grab;touch-action:none;transition:border-color .16s var(--ease)}
+.ov:hover,.ov.drag{border-color:var(--azure);background:rgba(0,104,168,.06)}
+.ov.drag{cursor:grabbing}
+.ov .tag{position:absolute;top:-20px;left:0;font-family:var(--font-label);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--azure);opacity:0;transition:opacity .16s var(--ease);white-space:nowrap}
+.ov:hover .tag,.ov.drag .tag{opacity:1}
+.pv-foot{margin-top:10px;font-size:12px;color:var(--fg-3);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sr{position:absolute;left:-9999px}
+details.adv{margin-top:14px;border:1px solid var(--border);border-radius:10px;padding:0 14px}
+details.adv summary{cursor:pointer;padding:10px 0;font-weight:600;font-size:13px;color:var(--fg-2);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.adv summary::after{content:'+';font-family:var(--font-label);color:var(--fg-3)}
+details.adv[open] summary::after{content:'−'}
+details.adv .grid{margin-top:4px;margin-bottom:14px}
+label.f textarea{border:1px solid var(--border);border-radius:6px;padding:8px 10px;background:var(--bg-surface);color:var(--fg-1);font-weight:400;font-size:13.5px;resize:vertical;min-height:64px;line-height:1.5}
+.qrbox{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.qrbox .qr{background:#fff;padding:10px;border:1px solid var(--border);border-radius:10px;width:172px;height:172px;display:grid;place-items:center}
+.qrbox .qr img,.qrbox .qr canvas{max-width:152px;max-height:152px}
+.code{font-family:var(--font-label);font-weight:700;font-size:28px;letter-spacing:.18em;color:var(--fg-1);margin:4px 0}
+.steps-list{margin:14px 0 0;padding:0 0 0 22px;font-size:13.5px;color:var(--fg-2);line-height:1.55}
+.steps-list li{margin:0 0 6px;padding-left:4px}
+.steps-list li::marker{font-family:var(--font-label);color:var(--azure);font-weight:700}
+.steps-list b{color:var(--fg-1);font-weight:600}
+.docid{font-family:var(--font-label);letter-spacing:.06em;font-size:12.5px;color:var(--fg-2);margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.docid b{color:var(--fg-1);letter-spacing:.1em}
+.verify{margin-top:10px;font-size:13px;line-height:1.6}
+.verify table{border-collapse:collapse;width:100%;margin-top:8px;font-size:12.5px}
+.verify td{padding:4px 0;border-bottom:1px solid var(--border);vertical-align:top}
+.verify td:first-child{color:var(--fg-3);width:38%}
+/* phone signing view */
+body.phone .wrap,body.phone .bar .meta{display:none}
+.phoneview{display:none;max-width:560px;margin:0 auto;padding:20px 16px 48px}
+body.phone .phoneview{display:block}
+.phoneview .pad{height:240px}
+.phoneview h2{font-size:20px;margin-bottom:4px}
+.phoneview p{color:var(--fg-2);font-size:13.5px}
+.phoneview label.f input{font-family:var(--font-label);letter-spacing:.2em;font-size:20px;text-transform:uppercase;text-align:center;height:48px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="bar">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="193.12 639.0 198.46 221.11" role="img" aria-label="TBI Saudi Executive Education"><path fill-rule="nonzero" fill="#FFFFFF" fill-opacity="1" d="M 265.125 761.101562 C 265.171875 756.265625 266.320312 751.757812 270.195312 748.453125 C 271.335938 747.472656 271.597656 746.503906 270.789062 745.355469 C 269.785156 743.917969 268.792969 745.238281 268.027344 745.667969 C 258.15625 751.203125 251.753906 758.917969 251.820312 770.9375 C 251.921875 791.035156 251.828125 793.207031 251.855469 813.308594 C 251.859375 816.761719 251.609375 820.230469 248.929688 822.65625 C 246.878906 824.507812 246.3125 826.484375 246.914062 829.585938 C 257.621094 822.960938 265.683594 815.328125 265.0625 801.660156 C 264.640625 792.289062 264.964844 800.820312 264.984375 791.429688 C 265.007812 781.324219 265.019531 771.214844 265.125 761.101562 "/><path fill-rule="nonzero" fill="#FFFFFF" fill-opacity="1" d="M 263.289062 738.535156 C 269.742188 739.933594 275.058594 737.902344 279.496094 733.527344 C 283.230469 729.851562 285.792969 725.558594 287.875 721.0625 C 288.382812 719.957031 289.550781 718.582031 287.613281 717.800781 C 285.804688 717.070312 285.550781 718.824219 284.882812 719.589844 C 280.359375 724.785156 278.019531 725.5625 271.246094 723.808594 C 268.984375 723.222656 266.792969 722.445312 264.496094 721.972656 C 258.152344 720.660156 251.773438 719.359375 245.34375 722.636719 C 231.40625 729.742188 226.917969 747.511719 236.964844 760.28125 C 237.335938 760.753906 237.625 761.894531 238.738281 761.160156 C 239.757812 760.480469 239.75 759.636719 239.015625 758.679688 C 237.175781 756.273438 235.804688 753.652344 235.265625 750.335938 C 235.105469 748.605469 234.777344 746.539062 235.105469 744.398438 C 236.214844 737.164062 241.003906 733.949219 248.855469 735.421875 C 253.707031 736.332031 258.476562 737.496094 263.289062 738.535156 "/><path fill-rule="nonzero" fill="#FFFFFF" fill-opacity="1" d="M 340.230469 837.132812 C 337.453125 835.410156 337.335938 832.640625 337.339844 829.808594 C 337.347656 817.644531 337.34375 823.410156 337.34375 811.246094 C 337.335938 799.40625 332.675781 793.101562 321.273438 789.402344 C 319.652344 788.878906 317.875 788.621094 316.304688 787.347656 C 317.460938 786.273438 318.4375 785.40625 319.371094 784.488281 C 328.3125 775.742188 335.71875 766.078125 337.171875 753.125 C 338.320312 742.882812 338.050781 732.851562 331.234375 724.222656 C 325.691406 717.199219 318.640625 715.757812 310.761719 720.027344 C 301.007812 725.308594 293.742188 733.265625 287.082031 741.914062 C 280.824219 750.039062 277.941406 758.871094 278.328125 769.378906 C 278.984375 786.941406 278.492188 786.613281 278.53125 804.199219 C 278.535156 807.953125 278.125 811.648438 277.386719 815.3125 C 277.003906 817.214844 276.523438 819.285156 274.8125 820.328125 C 272.261719 821.882812 272.152344 823.960938 272.742188 826.53125 C 275.199219 825.898438 277.070312 824.402344 279.007812 822.992188 C 288.246094 816.285156 292.042969 807.242188 291.859375 795.867188 C 291.535156 775.757812 291.707031 773.570312 291.796875 753.453125 C 291.855469 740.53125 298.476562 731.691406 309.75 726.152344 C 315.59375 723.277344 320.261719 725.71875 321.679688 732.035156 C 324.152344 743.023438 323.246094 754.011719 321.882812 765.0625 C 320.230469 778.464844 313.652344 787.929688 300.996094 792.914062 C 298.445312 793.917969 298.953125 795.570312 299.425781 797.699219 C 304.113281 795.402344 308.523438 793.21875 312.960938 791.09375 C 313.980469 790.605469 314.941406 789.75 316.261719 790.769531 C 320.269531 793.867188 323.957031 797.292969 324.011719 802.738281 C 324.160156 818.996094 324.066406 817.328125 324.121094 833.582031 C 324.128906 835.1875 323.671875 836.011719 322.011719 836.238281 C 316.804688 836.949219 312.105469 839.140625 307.539062 841.578125 C 305.867188 842.472656 304.582031 842.5 302.910156 841.472656 C 297.160156 837.9375 291.1875 834.839844 284.492188 833.417969 C 270.355469 830.417969 258.6875 835.714844 247.121094 844.25 C 251.039062 845.246094 253.347656 848.296875 257.15625 847.484375 C 268.472656 845.082031 278.570312 848.570312 288.070312 854.3125 C 292.15625 856.777344 294.273438 856.894531 297.554688 853.617188 C 307.601562 843.601562 319.492188 838.664062 333.808594 840.265625 C 335.480469 840.453125 337.160156 840.5625 338.839844 840.746094 C 340 840.871094 340.617188 840.308594 340.984375 839.277344 C 341.316406 838.335938 341.070312 837.652344 340.230469 837.132812 "/><path fill-rule="nonzero" fill="#FFFFFF" fill-opacity="1" d="M 387.097656 678.789062 C 355.882812 666.730469 324.671875 654.679688 293.464844 642.601562 C 292.488281 642.226562 291.660156 642.222656 290.695312 642.613281 C 277.542969 647.953125 264.371094 653.261719 251.203125 658.582031 C 236.34375 664.589844 221.484375 670.601562 206.625 676.613281 C 203.214844 677.992188 199.804688 679.378906 196.339844 680.785156 C 196.769531 681.371094 197.300781 681.339844 197.738281 681.472656 C 204.230469 683.402344 210.730469 685.320312 217.226562 687.238281 C 227.023438 690.132812 236.820312 693.035156 246.628906 695.894531 C 247.011719 696.007812 247.667969 696.710938 247.921875 695.871094 C 248.160156 695.082031 248.789062 694.808594 249.304688 694.402344 C 254.71875 690.113281 260.816406 687.089844 267.347656 684.929688 C 270.5625 683.867188 273.816406 683.019531 277.113281 682.378906 C 289.566406 680.472656 298.421875 681.054688 300.945312 681.292969 C 301 681.300781 301.046875 681.308594 301.105469 681.3125 C 311.128906 682.214844 320.667969 684.800781 329.515625 689.710938 C 331.867188 691.023438 334.390625 692.261719 336.132812 694.257812 C 337.378906 695.683594 338.308594 695.214844 339.511719 694.835938 C 353.328125 690.527344 367.144531 686.203125 380.960938 681.882812 C 382.460938 681.027344 384.148438 680.769531 385.785156 680.355469 C 386.027344 680.285156 386.265625 680.210938 386.507812 680.136719 C 386.550781 680.0625 386.613281 680.042969 386.691406 680.082031 C 387.234375 679.910156 387.777344 679.734375 388.363281 679.546875 C 388.050781 678.96875 387.519531 678.953125 387.097656 678.789062 "/><path fill-rule="nonzero" fill="#FFFFFF" fill-opacity="1" d="M 307.601562 684.128906 L 307.601562 684.125 C 306.996094 684.015625 306.394531 683.914062 305.796875 683.820312 C 305.75 683.8125 305.703125 683.804688 305.65625 683.796875 C 305.027344 683.699219 304.398438 683.609375 303.777344 683.527344 C 302.894531 683.410156 302.007812 683.296875 301.113281 683.203125 C 300.925781 683.179688 300.769531 683.175781 300.625 683.179688 C 296.191406 682.78125 292.21875 682.785156 289.167969 682.917969 C 289.066406 682.90625 288.949219 682.90625 288.824219 682.914062 C 288.445312 682.9375 288.070312 682.964844 287.691406 682.992188 C 284.738281 683.171875 282.964844 683.441406 282.964844 683.441406 L 282.964844 683.449219 C 273.175781 684.644531 263.851562 687.417969 255.222656 692.621094 C 253.238281 693.816406 251.351562 695.144531 249.601562 696.65625 C 249.238281 696.972656 248.46875 696.695312 248.480469 697.621094 C 248.527344 701.488281 248.480469 705.355469 248.453125 709.226562 C 248.449219 709.8125 248.535156 710.203125 249.261719 709.886719 C 249.589844 709.742188 249.917969 709.875 250.152344 710.097656 C 250.851562 710.753906 251.398438 710.511719 252.109375 710.007812 C 257.554688 706.148438 263.558594 703.441406 269.945312 701.5625 C 276.621094 699.59375 283.429688 698.523438 290.351562 698.3125 C 297.847656 698.398438 307.523438 699.550781 308.351562 699.652344 C 317.90625 701.394531 326.851562 704.761719 334.832031 710.59375 C 335.351562 710.96875 335.882812 711.328125 336.757812 711.941406 C 336.65625 707.054688 336.53125 702.71875 336.496094 698.382812 C 336.484375 697.214844 336.222656 696.527344 335.164062 695.722656 C 326.855469 689.421875 317.550781 685.914062 307.601562 684.128906 "/></svg>
+  <div class="t">
+    <span class="eyebrow">B International Management Consulting · Executive PGDBM · Pearson UK Level 7</span>
+    <h1>Entrepreneur declaration of experience</h1>
+  </div>
+  <div class="meta"><span id="cohortMeta">Jeddah cohort</span> · applicant self-service · <a href="#" id="phoneLink" style="color:#8A94A6;text-decoration:underline">signing from a phone?</a></div>
+</div>
+
+<div class="phoneview" id="phoneview">
+  <span class="eyebrow">Phone signing</span>
+  <h2>Sign with your finger</h2>
+  <p>Enter the 6-character code shown on your computer, sign in the box, then send. Only your pen strokes travel; the signature appears on the desktop preview within a few seconds.</p>
+  <label class="f" style="margin-top:14px">Code from the desktop<input id="phCode" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="ABC123"></label>
+  <div class="pad" style="margin-top:14px"><canvas id="phpad"></canvas><div class="line"></div><span class="x">×</span></div>
+  <div class="row" style="margin-top:12px;justify-content:space-between"><button class="btn ghost" id="phClear">Clear</button><button class="btn gold" id="phSend">Send to desktop</button></div>
+  <div class="notice" id="phNotice"></div>
+  <p style="margin-top:18px;font-size:12px"><a href="#" id="phExit" style="color:var(--link)">Back to the full form</a></p>
+</div>
+<div class="wrap">
+<div class="steps">
+
+  <!-- Step 1 -->
+  <section class="step open" id="s1">
+    <header><span class="num">1</span><div class="h"><h2>Your details</h2><span class="sub">Fills the blanks in the declaration as you type</span></div>
+      <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg></header>
+    <div class="body">
+      <span class="eyebrow" style="display:block;margin-top:14px">Cohort</span>
+      <div class="seg" role="group" aria-label="Cohort" style="margin-top:8px">
+        <button class="on" data-c="Jeddah" onclick="setCohort('Jeddah')">Jeddah</button>
+        <button data-c="Riyadh" onclick="setCohort('Riyadh')">Riyadh</button>
+        <button data-c="Dammam" onclick="setCohort('Dammam')">Dammam</button>
+      </div>
+      <div class="grid">
+        <label class="f full">Full name (as on your ID)<input id="name" placeholder="e.g. Abdullah Al-Harbi" autocomplete="name"></label>
+        <label class="f full">Company name<input id="company" placeholder="e.g. Al-Harbi Trading Est."></label>
+        <label class="f">Industry<input id="industry" list="industries" placeholder="e.g. retail"><datalist id="industries">
+          <option value="retail"><option value="construction"><option value="real estate"><option value="hospitality"><option value="food and beverage"><option value="logistics"><option value="healthcare"><option value="education"><option value="information technology"><option value="manufacturing"><option value="trading"><option value="consulting"><option value="financial services"><option value="tourism and travel"><option value="oil and gas"></datalist></label>
+        <label class="f">Years in the industry<input id="years" type="number" min="1" max="60" step="1" placeholder="e.g. 8"></label>
+        <label class="f full">Designation in the organisation<input id="role" list="roles" placeholder="e.g. Managing Director"><datalist id="roles">
+          <option value="Founder"><option value="Owner"><option value="Chief Executive Officer"><option value="Managing Director"><option value="General Manager"><option value="Managing Partner"><option value="Executive Director"><option value="Chairman"></datalist></label>
+        <label class="f">Place<input id="place" value="Jeddah"></label>
+        <label class="f">Date<input id="date" type="date"><span class="hint">Prints as "7th September 2026"</span></label>
+      </div>
+      <details class="adv"><summary>Programme wording for this cohort</summary>
+        <div class="grid">
+          <label class="f full">Programme name<textarea id="wProg"></textarea></label>
+          <label class="f full">Institution<textarea id="wInst"></textarea></label>
+          <label class="f full">Certification<textarea id="wCert"></textarea></label>
+          <div class="full row"><button class="btn ghost sm" onclick="resetWording()">Restore default wording</button><span style="font-size:12px;color:var(--fg-3)">Saved per cohort on this device</span></div>
+        </div>
+      </details>
+      <div class="row" style="margin-top:16px;justify-content:flex-end"><button class="btn" onclick="go(2)">Next · letterhead</button></div>
+    </div>
+  </section>
+
+  <!-- Step 2 -->
+  <section class="step" id="s2">
+    <header><span class="num">2</span><div class="h"><h2>Company letterhead</h2><span class="sub">Optional · upload a PDF and the letter prints on page 1</span></div>
+      <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg></header>
+    <div class="body">
+      <div class="seg" role="group" aria-label="Paper">
+        <button class="on" id="paperLh" onclick="setPaper('letterhead')">On my letterhead</button>
+        <button id="paperPlain" onclick="setPaper('plain')">Plain A4</button>
+      </div>
+      <div id="lhBlock">
+        <div class="drop" id="lhDrop"><input type="file" id="lhFile" accept="application/pdf">
+          <strong>Drop the letterhead PDF here</strong> or click to choose<small>Page 1 is used. Blank letterheads work best.</small></div>
+        <div class="filecard" id="lhCard" hidden><img class="thumb" id="lhThumb" alt=""><div class="n"><b id="lhName"></b><span id="lhInfo"></span></div><button class="btn ghost sm" onclick="clearLetterhead()">Remove</button></div>
+        <div class="range"><div class="lbl"><span>Start text below the header</span><span class="v" id="topV">150 pt</span></div><input type="range" id="top" min="70" max="340" value="150"><span class="hint" id="topHint">Set automatically from the letterhead when you upload it; adjust if needed</span></div>
+        <div class="range"><div class="lbl"><span>Side margins</span><span class="v" id="sideV">64 pt</span></div><input type="range" id="side" min="40" max="110" value="64"></div>
+      </div>
+      <div class="row" style="margin-top:16px;justify-content:space-between"><button class="btn ghost" onclick="go(1)">Back</button><button class="btn" onclick="go(3)">Next · sign and stamp</button></div>
+    </div>
+  </section>
+
+  <!-- Step 3 -->
+  <section class="step" id="s3">
+    <header><span class="num">3</span><div class="h"><h2>Signature and company stamp</h2><span class="sub">Draw, type, upload or sign from your phone · drag either one on the preview to position it</span></div>
+      <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg></header>
+    <div class="body">
+      <span class="eyebrow" style="display:block;margin-top:14px">Signature</span>
+      <div class="tabs" role="tablist">
+        <button class="on" data-t="draw" onclick="sigTab('draw')">Draw</button>
+        <button data-t="type" onclick="sigTab('type')">Type</button>
+        <button data-t="upload" onclick="sigTab('upload')">Upload</button>
+        <button data-t="phone" onclick="sigTab('phone')">From my phone</button>
+      </div>
+      <div class="pane on" id="pane-draw">
+        <div class="pad"><canvas id="padc"></canvas><div class="line"></div><span class="x">×</span></div>
+        <div class="row" style="margin-top:10px"><button class="btn ghost sm" onclick="padClear()">Clear</button><button class="btn sm" onclick="padUse()">Use this signature</button><span style="font-size:12px;color:var(--fg-3)">Mouse, trackpad or finger</span></div>
+      </div>
+      <div class="pane" id="pane-type">
+        <label class="f">Name to render as a signature<input id="typedName" placeholder="Uses your full name if left blank"></label>
+        <div class="typed" id="typedPrev">Your name</div>
+        <div class="row" style="margin-top:10px"><button class="btn sm" onclick="typedUse()">Use this signature</button></div>
+      </div>
+      <div class="pane" id="pane-upload">
+        <div class="drop" id="sigDrop" style="margin-top:0"><input type="file" id="sigFile" accept="image/png,image/jpeg">
+          <strong>Drop a signature image</strong> or click to choose<small>PNG with transparent background prints cleanest · JPG accepted</small></div>
+      </div>
+      <div class="pane" id="pane-phone">
+        <p style="font-size:13px;color:var(--fg-2)">Scan the code with your phone, open the page, enter the code below and sign with your finger. The signature lands here automatically.</p>
+        <div class="qrbox"><div class="qr" id="qr"></div><div><span class="eyebrow">Pairing code</span><div class="code" id="pairCode">------</div><div id="pairStatus" style="font-size:12.5px;color:var(--fg-3)">Waiting for the phone…</div><button class="btn ghost sm" style="margin-top:10px" onclick="newPairCode()">New code</button></div></div>
+        <details class="adv" open><summary>How phone signing works</summary>
+          <ol class="steps-list">
+            <li><b>Scan the QR code</b> with the phone camera. It opens this page on the phone in signing mode with the pairing code already filled in. If the camera cannot read it, open the same page address on the phone, tap "signing from a phone?" in the header and type the code.</li>
+            <li><b>The phone announces itself.</b> As soon as a valid code is present it sends a short "connected" ping and the status here changes to "Phone connected".</li>
+            <li><b>Sign with a finger</b> in the box on the phone. Clear and redo as often as needed; nothing is sent yet.</li>
+            <li><b>Tap "Send to desktop".</b> The phone sends only the pen strokes, a few kilobytes of coordinates, through a relay under the pairing code. No image, no letterhead and none of the applicant's details leave the phone.</li>
+            <li><b>The desktop redraws the strokes</b> into a high-resolution signature, places it above the "Signature" line on the preview and shows "Signature received". Drag it to adjust; use "New code" to pair again.</li>
+          </ol>
+          <p style="font-size:12px;color:var(--fg-3);margin:0 0 12px">The relay keeps nothing: messages are sent with caching off and expire the moment they are delivered. The code uses a 32-character alphabet, so it is not guessable in practice. A code is valid only while this tab stays open.</p>
+        </details>
+      </div>
+      <div class="sigprev" id="sigPrev" hidden><img id="sigImg" alt="Chosen signature"><div style="flex:1;font-size:12.5px;color:var(--fg-2)">Signature ready · drag it on the preview to fine-tune</div><button class="btn ghost sm" onclick="clearSig()">Remove</button></div>
+      <div class="range"><div class="lbl"><span>Signature width</span><span class="v" id="sigWV">150 pt</span></div><input type="range" id="sigW" min="80" max="260" value="150"></div>
+
+      <span class="eyebrow" style="display:block;margin-top:22px">Company stamp</span>
+      <div class="drop" id="stDrop"><input type="file" id="stFile" accept="image/png,image/jpeg">
+        <strong>Drop the stamp image</strong> or click to choose<small>A photo or scan of the stamp on white paper is fine · white is removed on export</small></div>
+      <div class="sigprev" id="stPrev" hidden><img id="stImg" alt="Chosen stamp"><div style="flex:1;font-size:12.5px;color:var(--fg-2)">Stamp ready · drag it on the preview</div><button class="btn ghost sm" onclick="clearStamp()">Remove</button></div>
+      <div class="range"><div class="lbl"><span>Stamp size</span><span class="v" id="stWV">110 pt</span></div><input type="range" id="stW" min="60" max="200" value="110"></div>
+      <div class="range"><div class="lbl"><span>Stamp tilt</span><span class="v" id="stRV">− 6°</span></div><input type="range" id="stR" min="-20" max="20" value="-6"></div>
+      <div class="range"><div class="lbl"><span>Stamp opacity</span><span class="v" id="stOV">90%</span></div><input type="range" id="stO" min="40" max="100" value="90"></div>
+      <label class="f" style="margin-top:12px;flex-direction:row;align-items:center;gap:8px"><input type="checkbox" id="stKey" checked style="height:auto;width:16px;accent-color:var(--azure)"> Remove white background from the stamp</label>
+
+      <div class="row" style="margin-top:16px;justify-content:space-between"><button class="btn ghost" onclick="go(2)">Back</button><button class="btn" onclick="go(4)">Next · review and export</button></div>
+    </div>
+  </section>
+
+  <!-- Step 4 -->
+  <section class="step" id="s4">
+    <header><span class="num">4</span><div class="h"><h2>Review and export</h2><span class="sub">Checks every blank, then saves a signed PDF</span></div>
+      <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 9 6 6 6-6"/></svg></header>
+    <div class="body">
+      <ul class="check" id="checks"></ul>
+      <div class="docid">Document ID <b id="docId">pending</b><span style="color:var(--fg-3)">· printed in the page footer and embedded in the PDF</span></div>
+      <div class="notice" id="notice"></div>
+      <details class="adv"><summary>Verify a received PDF (admissions)</summary>
+        <div class="drop" id="vfDrop" style="margin-top:4px"><input type="file" id="vfFile" accept="application/pdf"><strong>Drop a declaration PDF</strong> or click to choose<small>Reads the embedded record and checks it against the printed document ID</small></div>
+        <div class="verify" id="vfOut"></div>
+      </details>
+      <div class="row" style="margin-top:18px;justify-content:space-between">
+        <button class="btn ghost" onclick="go(3)">Back</button>
+        <div class="row">
+          <button class="btn ghost" onclick="resetAll()">Start over</button>
+          <button class="btn gold" id="exportBtn" onclick="exportPdf()"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Save signed PDF</button>
+        </div>
+      </div>
+      <p style="margin-top:12px;font-size:12px;color:var(--fg-3)">Everything runs in your browser. The letterhead, signature and stamp never leave this page; your entries are remembered on this device until you start over.</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="preview-col">
+  <div class="pv-head"><span class="eyebrow">Live preview · page 1</span><span class="st" id="pvStatus">Rendering…</span></div>
+  <div class="sheet" id="sheet">
+    <canvas id="pv"></canvas>
+    <div class="ov" id="ovSig" hidden><span class="tag">Signature · drag</span></div>
+    <div class="ov" id="ovSt" hidden><span class="tag">Stamp · drag</span></div>
+  </div>
+  <div class="pv-foot"><span id="pvPaper">Plain A4 · 210 × 297 mm</span><span>Rendered exactly as the PDF will print</span></div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const {PDFDocument,StandardFonts,rgb,degrees}=PDFLib;
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+/* ---------- state ---------- */
+const S={
+  name:'',company:'',industry:'',years:'',role:'',place:'Jeddah',date:todayISO(),
+  paper:'letterhead',lhBytes:null,lhName:'',lhPage:{w:595.28,h:841.89},top:150,side:64,
+  sigData:null,sigW:150,sigX:null,sigY:null,          // x,y = top-left fraction of page
+  stData:null,stW:110,stR:-6,stO:90,stKey:true,stX:null,stY:null,
+  sigTab:'draw',cohort:'Jeddah',wording:{},pairCode:'',footY:20
+};
+const ARTIFACT_URL='https://claude.ai/code/artifact/ed6831c0-f311-477e-810c-e66a76009896';
+const PAGE_URL=ARTIFACT_URL;            // the address the QR code opens (overridden in the Pages build)
+const RELAY='https://ntfy.sh';         // pub/sub relay used when the shared database is unavailable; swap for a self-hosted ntfy or worker
+const relayTopic=c=>'tbi-decl-'+c.toLowerCase();
+const COHORTS={
+  Jeddah:{place:'Jeddah'},Riyadh:{place:'Riyadh'},Dammam:{place:'Dammam'}
+};
+const DEFAULT_WORDING={prog:'Executive UK PGDBM programme',inst:'The B School International (B International Management Consulting)',cert:'Pearson UK Level 7 (PGDBM)'};
+function wording(){return Object.assign({},DEFAULT_WORDING,(S.wording||{})[S.cohort]||{});}
+function todayISO(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function ordinal(n){const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+function fmtDate(iso){if(!iso)return '';const [y,m,d]=iso.split('-').map(Number);const M=['January','February','March','April','May','June','July','August','September','October','November','December'];return ordinal(d)+' '+M[m-1]+' '+y;}
+
+/* persistence (per device) */
+const KEY='tbi-declaration-v1';
+function save(){try{const o={...S};o.lhBytes=null;localStorage.setItem(KEY,JSON.stringify(o));if(S.lhBytes)localStorage.setItem(KEY+':lh',b64(S.lhBytes));else localStorage.removeItem(KEY+':lh');}catch(e){}}
+function load(){try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o){Object.assign(S,o);}const lh=localStorage.getItem(KEY+':lh');if(lh)S.lhBytes=unb64(lh);}catch(e){}}
+function b64(u8){let s='';for(let i=0;i<u8.length;i+=0x8000)s+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000));return btoa(s);}
+function unb64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+
+/* ---------- steps ---------- */
+window.go=n=>{document.querySelectorAll('.step').forEach((el,i)=>el.classList.toggle('open',i===n-1));if(n===4)renderChecks();$('s'+n).scrollIntoView({behavior:'smooth',block:'start'});};
+document.querySelectorAll('.step>header').forEach((h,i)=>h.addEventListener('click',()=>{const st=h.parentElement;const open=st.classList.contains('open');document.querySelectorAll('.step').forEach(el=>el.classList.remove('open'));if(!open){st.classList.add('open');if(i===3)renderChecks();}}));
+function markSteps(){
+  $('s1').classList.toggle('done',!!(S.name&&S.company&&S.industry&&S.years&&S.role));
+  $('s2').classList.toggle('done',S.paper==='plain'||!!S.lhBytes);
+  $('s3').classList.toggle('done',!!S.sigData);
+}
+
+/* ---------- inputs ---------- */
+['name','company','industry','years','role','place','date'].forEach(k=>{const el=$(k);el.value=S[k]||'';el.addEventListener('input',()=>{S[k]=el.value;if(k==='name')$('typedPrev').textContent=($('typedName').value||S.name||'Your name');touch();});});
+window.setCohort=c=>{const prev=S.cohort;S.cohort=c;document.querySelectorAll('[data-c]').forEach(b=>b.classList.toggle('on',b.dataset.c===c));$('cohortMeta').textContent=c+' cohort';
+  if(!S.place||S.place===(COHORTS[prev]||{}).place){S.place=COHORTS[c].place;$('place').value=S.place;}fillWording();touch();};
+function fillWording(){const w=wording();$('wProg').value=w.prog;$('wInst').value=w.inst;$('wCert').value=w.cert;}
+[['wProg','prog'],['wInst','inst'],['wCert','cert']].forEach(([id,k])=>$(id).addEventListener('input',()=>{S.wording=S.wording||{};S.wording[S.cohort]=Object.assign({},S.wording[S.cohort]||{},{[k]:$(id).value});touch();}));
+window.resetWording=()=>{if(S.wording)delete S.wording[S.cohort];fillWording();touch();};
+function bindRange(id,key,fmt){const el=$(id);el.value=S[key];const v=$(id+'V');const show=()=>v.textContent=fmt(+el.value);show();el.addEventListener('input',()=>{S[key]=+el.value;show();touch();});}
+bindRange('top','top',v=>v+' pt');bindRange('side','side',v=>v+' pt');bindRange('sigW','sigW',v=>v+' pt');bindRange('stW','stW',v=>v+' pt');
+bindRange('stR','stR',v=>(v<0?'− ':v>0?'+ ':'')+Math.abs(v)+'°');bindRange('stO','stO',v=>v+'%');
+$('stKey').checked=S.stKey;$('stKey').addEventListener('change',e=>{S.stKey=e.target.checked;rebuildStampKeyed();});
+
+/* ---------- paper / letterhead ---------- */
+window.setPaper=p=>{S.paper=p;$('paperLh').classList.toggle('on',p==='letterhead');$('paperPlain').classList.toggle('on',p==='plain');$('lhBlock').style.display=p==='letterhead'?'':'none';touch();};
+function dropzone(zoneId,inputId,fn){const z=$(zoneId),inp=$(inputId);z.addEventListener('click',()=>inp.click());inp.addEventListener('change',()=>{if(inp.files[0])fn(inp.files[0]);inp.value='';});
+  ['dragenter','dragover'].forEach(ev=>z.addEventListener(ev,e=>{e.preventDefault();z.classList.add('over');}));['dragleave','drop'].forEach(ev=>z.addEventListener(ev,e=>{e.preventDefault();z.classList.remove('over');}));z.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)fn(f);});}
+dropzone('lhDrop','lhFile',async f=>{if(f.type!=='application/pdf'&&!/\.pdf$/i.test(f.name)){flash('err','That file is not a PDF. Export the letterhead from Word as PDF and try again.');return;}
+  const bytes=new Uint8Array(await f.arrayBuffer());try{const d=await PDFDocument.load(bytes,{ignoreEncryption:true});const p=d.getPage(0);S.lhPage={w:p.getWidth(),h:p.getHeight()};}catch(e){flash('err','The PDF could not be read. Try re-saving it from the original application.');return;}
+  S.lhBytes=bytes;S.lhName=f.name;S.footY=20;showLhCard(f.size);touch();detectMargins();});
+/* scan page 1 for the header's lowest ink and the footer's highest ink; default the slider from it */
+async function detectMargins(){try{const doc=await pdfjsLib.getDocument({data:S.lhBytes.slice(0)}).promise;const pg=await doc.getPage(1);const base=pg.getViewport({scale:1});const scale=600/base.height;const vp=pg.getViewport({scale});
+  const c=document.createElement('canvas');c.width=Math.ceil(vp.width);c.height=Math.ceil(vp.height);const cx=c.getContext('2d');cx.fillStyle='#fff';cx.fillRect(0,0,c.width,c.height);await pg.render({canvasContext:cx,viewport:vp,intent:'print'}).promise;
+  const d=cx.getImageData(0,0,c.width,c.height).data,W=c.width,H=c.height;const rowInk=y=>{let n=0;for(let x=0;x<W;x+=2){const i=(y*W+x)*4;if(d[i+3]>40&&(d[i]+d[i+1]+d[i+2])/3<225)n++;}return n/(W/2);};
+  const ink=new Array(H);for(let y=0;y<H;y++)ink[y]=rowInk(y);
+  const full=ink.filter(v=>v>0.9).length;if(full>H*0.5){$('topHint').textContent='Letterhead has a full-page design; set the start position by eye.';return;}
+  let headerBottom=-1;for(let y=0;y<Math.floor(H*0.42);y++)if(ink[y]>0.004)headerBottom=y;
+  let footerTop=-1;for(let y=H-1;y>Math.floor(H*0.72);y--)if(ink[y]>0.004)footerTop=y;
+  const toPt=px=>px/scale;
+  if(headerBottom>=0){const top=Math.round(Math.min(340,Math.max(70,toPt(headerBottom)+30)));S.top=top;$('top').value=top;$('topV').textContent=top+' pt';$('topHint').textContent='Detected header ends at '+Math.round(toPt(headerBottom))+' pt; text starts 30 pt below. Adjust if needed.';}
+  else{$('topHint').textContent='No header ink found in the top part of the page; using the default start.';}
+  if(footerTop>=0){S.footY=Math.round(Math.max(20,(S.lhPage.h-toPt(footerTop))+10));}
+  touch();}catch(e){console.error(e);}}
+async function showLhCard(size){$('lhCard').hidden=false;$('lhDrop').style.display='none';$('lhName').textContent=S.lhName||'letterhead.pdf';$('lhInfo').textContent=(size?Math.round(size/1024)+' KB · ':'')+Math.round(S.lhPage.w/72*25.4)+' × '+Math.round(S.lhPage.h/72*25.4)+' mm';
+  try{const doc=await pdfjsLib.getDocument({data:S.lhBytes.slice(0)}).promise;const pg=await doc.getPage(1);const vp=pg.getViewport({scale:60/pg.getViewport({scale:1}).width});const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp,intent:'print'}).promise;$('lhThumb').src=c.toDataURL();}catch(e){}}
+window.clearLetterhead=()=>{S.lhBytes=null;S.lhName='';S.footY=20;$('topHint').textContent='Set automatically from the letterhead when you upload it; adjust if needed';S.lhPage={w:595.28,h:841.89};$('lhCard').hidden=true;$('lhDrop').style.display='';touch();};
+
+/* ---------- signature ---------- */
+window.sigTab=t=>{S.sigTab=t;document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id==='pane-'+t));if(t==='draw')padSize();if(t==='phone')startPairing();};
+const pad=$('padc'),pctx=pad.getContext('2d');let drawing=false,last=null,padDirty=false;
+function padSize(){const r=pad.parentElement.getBoundingClientRect();if(r.width===0)return;const dpr=window.devicePixelRatio||1;const img=padDirty?pctx.getImageData(0,0,pad.width,pad.height):null;pad.width=r.width*dpr;pad.height=r.height*dpr;pctx.setTransform(dpr,0,0,dpr,0,0);pctx.lineCap='round';pctx.lineJoin='round';pctx.strokeStyle='#0B1F4A';pctx.lineWidth=2.2;if(img)pctx.putImageData(img,0,0);}
+new ResizeObserver(padSize).observe(pad.parentElement);
+function pos(e){const r=pad.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
+pad.addEventListener('pointerdown',e=>{drawing=true;last=pos(e);pad.setPointerCapture(e.pointerId);pctx.beginPath();pctx.moveTo(last.x,last.y);pctx.lineTo(last.x+.1,last.y);pctx.stroke();padDirty=true;});
+pad.addEventListener('pointermove',e=>{if(!drawing)return;const p=pos(e);const m={x:(last.x+p.x)/2,y:(last.y+p.y)/2};pctx.beginPath();pctx.moveTo(last.x,last.y);pctx.quadraticCurveTo(last.x,last.y,m.x,m.y);pctx.lineTo(p.x,p.y);pctx.stroke();last=p;});
+['pointerup','pointercancel','pointerleave'].forEach(ev=>pad.addEventListener(ev,()=>{drawing=false;}));
+window.padClear=()=>{pctx.clearRect(0,0,pad.width,pad.height);padDirty=false;};
+window.padUse=()=>{if(!padDirty){flash('warn','Draw your signature first.');return;}setSig(trimCanvas(pad).toDataURL('image/png'));};
+$('typedName').addEventListener('input',()=>$('typedPrev').textContent=$('typedName').value||S.name||'Your name');
+window.typedUse=async()=>{const n=$('typedName').value||S.name;if(!n){flash('warn','Enter a name to render.');return;}try{await document.fonts.load('600 80px "Dancing Script"');}catch(e){}
+  const c=document.createElement('canvas');const ctx=c.getContext('2d');ctx.font='600 80px "Dancing Script", cursive';const w=ctx.measureText(n).width;c.width=Math.ceil(w)+40;c.height=140;const cx=c.getContext('2d');cx.font='600 80px "Dancing Script", cursive';cx.fillStyle='#0B1F4A';cx.textBaseline='middle';cx.fillText(n,20,70);setSig(c.toDataURL('image/png'));};
+dropzone('sigDrop','sigFile',f=>readImg(f,d=>setSig(d)));
+function setSig(d){S.sigData=d;$('sigPrev').hidden=false;$('sigImg').src=d;if(S.sigX==null){S.sigX=null;S.sigY=null;}touch();}
+window.clearSig=()=>{S.sigData=null;$('sigPrev').hidden=true;touch();};
+function readImg(f,cb){if(!/^image\/(png|jpeg)$/.test(f.type)){flash('err','Use a PNG or JPG image.');return;}const r=new FileReader();r.onload=()=>cb(r.result);r.readAsDataURL(f);}
+function trimCanvas(src){const w=src.width,h=src.height,d=src.getContext('2d').getImageData(0,0,w,h).data;let x0=w,y0=h,x1=0,y1=0;for(let y=0;y<h;y++)for(let x=0;x<w;x++){if(d[(y*w+x)*4+3]>10){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}}
+  if(x1<x0||y1<y0)throw new Error('blank');const p=12;x0=Math.max(0,x0-p);y0=Math.max(0,y0-p);x1=Math.min(w-1,x1+p);y1=Math.min(h-1,y1+p);const c=document.createElement('canvas');c.width=x1-x0+1;c.height=y1-y0+1;c.getContext('2d').drawImage(src,x0,y0,c.width,c.height,0,0,c.width,c.height);return c;}
+
+/* ---------- stamp ---------- */
+let stRaw=null;
+dropzone('stDrop','stFile',f=>readImg(f,d=>{stRaw=d;rebuildStampKeyed();}));
+function rebuildStampKeyed(){if(!stRaw){touch();return;}const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=im.width;c.height=im.height;const cx=c.getContext('2d');cx.drawImage(im,0,0);
+  if(S.stKey){const id=cx.getImageData(0,0,c.width,c.height),d=id.data;for(let i=0;i<d.length;i+=4){const l=(d[i]+d[i+1]+d[i+2])/3;if(l>235)d[i+3]=0;else if(l>200)d[i+3]=Math.round(d[i+3]*(235-l)/35);}cx.putImageData(id,0,0);}
+  S.stData=c.toDataURL('image/png');$('stPrev').hidden=false;$('stImg').src=S.stData;touch();};im.src=stRaw;}
+window.clearStamp=()=>{stRaw=null;S.stData=null;$('stPrev').hidden=true;touch();};
+
+/* ---------- letter layout (shared by preview and export) ---------- */
+function runs(){
+  const b=(t)=>({t,b:true}),n=(t)=>({t,b:false});
+  const dots='.........................';const w=wording();
+  const name=S.name||dots,co=S.company||dots,ind=S.industry||'...............',yrs=S.years||'.......',role=S.role||dots;
+  return {
+    title:'To Whomsoever It May Concern',
+    paras:[
+      [n('Myself '),b(name),n(' would like to join this '+w.prog+' of '+w.inst+'. I am interested in this '+w.prog+' since it is designed for entrepreneurs, enabling me to further enhance my strategic skills and thereby, become a catalyst for the growth of my organization, and gain a global certification of '+w.cert+'. This program is appropriate for me since I have relevant experience as required by this course.')],
+      [n('My company name is '),b(co),n(' and I have been in the '),b(ind),n(' industry for the last '),b(yrs),n(' years. The organization has designated me as the '),b(role),n('.')],
+      [n('I hereby declare the above mentioned details are correct to the best of my knowledge and belief.')]
+    ],
+    place:'Place: '+(S.place||'Jeddah'),
+    date:'Date: '+fmtDate(S.date)
+  };
+}
+function clean(t){return t.replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/–|—/g,'-').replace(/[^\x20-\x7E -ÿ]/g,'?');}
+/* word-wrap mixed bold/regular runs into lines: [{x,text,bold}] */
+function wrap(paraRuns,fonts,size,maxW){
+  const words=[];paraRuns.forEach(r=>{clean(r.t).split(/(\s+)/).forEach(w=>{if(w!=='')words.push({t:w,b:r.b});});});
+  const lines=[];let line=[],w=0;const sp=fonts.reg.widthOfTextAtSize(' ',size);
+  for(const wd of words){if(/^\s+$/.test(wd.t)){if(line.length){line.push({t:' ',b:false,w:sp});w+=sp;}continue;}
+    const ww=(wd.b?fonts.bold:fonts.reg).widthOfTextAtSize(wd.t,size);
+    if(w+ww>maxW&&line.length){while(line.length&&line[line.length-1].t===' ')line.pop();lines.push(line);line=[];w=0;}
+    line.push({t:wd.t,b:wd.b,w:ww});w+=ww;}
+  while(line.length&&line[line.length-1].t===' ')line.pop();if(line.length)lines.push(line);return lines;
+}
+/* ---------- document id (SHA-256 over the recorded fields + image digests) ---------- */
+const hashCache=new Map();
+async function sha256Hex(bytes){const d=await crypto.subtle.digest('SHA-256',bytes);return Array.from(new Uint8Array(d)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+async function digestData(key,dataUrlOrBytes){if(!dataUrlOrBytes)return '';const k=key+':'+(typeof dataUrlOrBytes==='string'?dataUrlOrBytes.length+dataUrlOrBytes.slice(-64):dataUrlOrBytes.length);if(hashCache.has(k))return hashCache.get(k);
+  const bytes=typeof dataUrlOrBytes==='string'?unb64(dataUrlOrBytes.split(',')[1]):dataUrlOrBytes;const h=await sha256Hex(bytes);hashCache.set(k,h);return h;}
+function payloadCore(){const w=wording();return {v:1,cohort:S.cohort,name:S.name,company:S.company,industry:S.industry,years:String(S.years),role:S.role,place:S.place,date:S.date,prog:w.prog,inst:w.inst,cert:w.cert};}
+async function payloadWithDigests(){const c=payloadCore();c.sig=await digestData('sig',S.sigData);c.stamp=await digestData('st',S.stData);c.lh=S.paper==='letterhead'&&S.lhBytes?await digestData('lh',S.lhBytes):'';return c;}
+function canonical(p){return JSON.stringify(Object.keys(p).sort().reduce((o,k)=>{o[k]=p[k];return o;},{}));}
+function idFromHex(h){const s=h.slice(0,16).toUpperCase();return 'TBI-'+s.slice(0,4)+'-'+s.slice(4,8)+'-'+s.slice(8,12)+'-'+s.slice(12,16);}
+async function documentId(payload){return idFromHex(await sha256Hex(new TextEncoder().encode(canonical(payload))));}
+async function buildPdf(opts={}){
+  const doc=S.paper==='letterhead'&&S.lhBytes?await PDFDocument.load(S.lhBytes.slice(0),{ignoreEncryption:true}):null;
+  const out=await PDFDocument.create();
+  let page;if(doc){const [p]=await out.copyPages(doc,[0]);page=out.addPage(p);}else{page=out.addPage([595.28,841.89]);}
+  const W=page.getWidth(),H=page.getHeight();
+  const reg=await out.embedFont(StandardFonts.TimesRoman),bold=await out.embedFont(StandardFonts.TimesRomanBold);
+  const fonts={reg,bold},size=12,lh=size*1.55,ink=rgb(0.05,0.1,0.22);
+  const L=S.side,maxW=W-2*S.side;let y=H-S.top;
+  const R=runs();
+  page.drawText(R.title,{x:L,y,size:13.5,font:bold,color:ink});y-=lh*1.9;
+  for(const p of R.paras){const lines=wrap(p,fonts,size,maxW);for(const ln of lines){let x=L;for(const s of ln){page.drawText(s.t,{x,y,size,font:s.b?bold:reg,color:ink});x+=s.w;}y-=lh;}y-=lh*0.8;}
+  y-=lh*0.4;
+  page.drawText(clean(R.place),{x:L,y,size,font:reg,color:ink});
+  page.drawText(clean(R.date),{x:L,y:y-lh,size,font:reg,color:ink});
+  const sigLabel='Signature';const sw=reg.widthOfTextAtSize(sigLabel,size);const sigLabelX=W-S.side-sw,sigLabelY=y-lh;
+  page.drawText(sigLabel,{x:sigLabelX,y:sigLabelY,size,font:reg,color:ink});
+  const geo={W,H,sigLabelX,sigLabelY,sigLineY:y};
+  /* signature */
+  if(S.sigData){const im=await embedImg(out,S.sigData);const w=S.sigW,h=w*im.height/im.width;
+    if(S.sigX==null){S.sigX=(W-S.side-w)/W;S.sigY=(H-(sigLabelY+size+6+h))/H;}
+    const x=S.sigX*W,yTop=S.sigY*H;page.drawImage(im,{x,y:H-yTop-h,width:w,height:h});geo.sig={x,y:yTop,w,h};}
+  if(S.stData){const im=await embedImg(out,S.stData);const w=S.stW,h=w*im.height/im.width;
+    if(S.stX==null){S.stX=(S.side+200)/W;S.stY=(H-(y+size+4))/H;}
+    const x=S.stX*W,yTop=S.stY*H,y0=H-yTop-h;const o=centerRot(w,h,S.stR);page.drawImage(im,{x:x+o.dx,y:y0+o.dy,width:w,height:h,rotate:degrees(S.stR),opacity:S.stO/100});geo.st={x,y:yTop,w,h};}
+  /* footer: document id */
+  const payload=await payloadWithDigests();const id=await documentId(payload);geo.id=id;
+  const foot='Document ID '+id+'  ·  generated '+todayISO()+'  ·  TBI Executive PGDBM declaration';
+  const fw=reg.widthOfTextAtSize(clean(foot),7.5);page.drawText(clean(foot),{x:(W-fw)/2,y:(S.paper==='letterhead'&&S.lhBytes&&S.footY)||20,size:7.5,font:reg,color:rgb(0.45,0.5,0.58)});
+  out.setTitle('Entrepreneur declaration of experience');out.setAuthor(clean(S.name||''));out.setProducer('TBI declaration builder');out.setSubject('Document ID '+id);
+  out.setKeywords(['tbi-declaration',btoa(unescape(encodeURIComponent(JSON.stringify({id,payload}))))]);
+  const bytes=await out.save();return {bytes,geo};
+}
+/* pdf-lib rotates about the image's bottom-left corner; offset so the stamp spins about its centre */
+function centerRot(w,h,deg){const r=deg*Math.PI/180,c=Math.cos(r),s=Math.sin(r);return {dx:w/2-(w/2*c-h/2*s),dy:h/2-(w/2*s+h/2*c)};}
+const imgCache=new Map();
+async function embedImg(out,dataUrl){const bytes=unb64(dataUrl.split(',')[1]);return dataUrl.startsWith('data:image/png')?out.embedPng(bytes):out.embedJpg(bytes);}
+
+/* ---------- preview ---------- */
+let renderTimer=null,rendering=false,queued=false,lastGeo=null;
+function touch(){markSteps();save();clearTimeout(renderTimer);renderTimer=setTimeout(render,180);}
+async function render(){if(rendering){queued=true;return;}rendering=true;$('pvStatus').textContent='Rendering…';
+  try{const {bytes,geo}=await buildPdf();lastGeo=geo;const doc=await pdfjsLib.getDocument({data:bytes}).promise;const pg=await doc.getPage(1);
+    const sheet=$('sheet');sheet.style.aspectRatio=geo.W+'/'+geo.H;const cw=sheet.clientWidth||700;const dpr=Math.min(2,window.devicePixelRatio||1);
+    const vp=pg.getViewport({scale:cw*dpr/geo.W});const c=$('pv');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp,intent:'print'}).promise;
+    placeOverlays();$('docId').textContent=geo.id||'pending';$('pvStatus').textContent='Up to date';$('pvPaper').textContent=(S.paper==='letterhead'&&S.lhBytes?'On letterhead':'Plain A4')+' · '+Math.round(geo.W/72*25.4)+' × '+Math.round(geo.H/72*25.4)+' mm';}
+  catch(e){console.error(e);$('pvStatus').textContent='Preview failed';}
+  rendering=false;if(queued){queued=false;render();}}
+function placeOverlays(){if(!lastGeo)return;const sh=$('sheet'),sx=sh.clientWidth/lastGeo.W,sy=sh.clientHeight/lastGeo.H;
+  for(const [id,g] of [['ovSig',lastGeo.sig],['ovSt',lastGeo.st]]){const el=$(id);if(!g){el.hidden=true;continue;}el.hidden=false;el.style.left=g.x*sx+'px';el.style.top=g.y*sy+'px';el.style.width=g.w*sx+'px';el.style.height=g.h*sy+'px';}}
+function drag(id,kx,ky){const el=$(id);let st=null;
+  el.addEventListener('pointerdown',e=>{if(!lastGeo)return;e.preventDefault();el.setPointerCapture(e.pointerId);el.classList.add('drag');st={x:e.clientX,y:e.clientY,l:parseFloat(el.style.left),t:parseFloat(el.style.top)};});
+  el.addEventListener('pointermove',e=>{if(!st)return;el.style.left=(st.l+e.clientX-st.x)+'px';el.style.top=(st.t+e.clientY-st.y)+'px';});
+  const end=e=>{if(!st)return;el.classList.remove('drag');const sh=$('sheet');const fx=parseFloat(el.style.left)/sh.clientWidth,fy=parseFloat(el.style.top)/sh.clientHeight;S[kx]=Math.min(Math.max(fx,0),0.95);S[ky]=Math.min(Math.max(fy,0),0.95);st=null;touch();};
+  el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end);}
+drag('ovSig','sigX','sigY');drag('ovSt','stX','stY');
+new ResizeObserver(()=>{placeOverlays();clearTimeout(renderTimer);renderTimer=setTimeout(render,250);}).observe($('sheet'));
+
+/* ---------- checks & export ---------- */
+function renderChecks(){const items=[
+  ['Full name',!!S.name],['Company name',!!S.company],['Industry',!!S.industry],['Years of experience',!!S.years],['Designation',!!S.role],
+  ['Date and place',!!(S.date&&S.place)],['Letterhead PDF',S.paper==='plain'||!!S.lhBytes,S.paper==='plain'?'plain A4 chosen':''],['Signature',!!S.sigData],['Company stamp',!!S.stData,'recommended']];
+  $('checks').innerHTML=items.map(([l,ok,note])=>`<li class="${ok?'ok':(note==='recommended'?'opt':'')}"><i><svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></i>${l}${note&&!ok?' · '+note:''}</li>`).join('');
+  const ready=items.slice(0,8).every(i=>i[1]);$('exportBtn').disabled=!ready;if(!ready)flash('warn','Complete the items above to enable export.');else if(!S.stData)flash('warn','No stamp added. You can still export, but TBI admissions may ask for a stamped copy.');else hideNotice();}
+function flash(kind,msg){const n=$('notice');n.className='notice show '+kind;n.textContent=msg;}
+function hideNotice(){$('notice').className='notice';}
+window.exportPdf=async()=>{const btn=$('exportBtn');btn.disabled=true;flash('ok','Preparing your PDF…');
+  try{const {bytes}=await buildPdf();const dl=await window.claude?.use?.('downloads');
+    const fname='Declaration-of-Experience-'+(S.name||'applicant').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+(S.date||todayISO())+'.pdf';
+    if(!dl){flash('err','Saving files is not available in this view. Open the page in the Claude app or browser and try again.');btn.disabled=false;return;}
+    await dl.save({filename:fname,data:new Blob([bytes],{type:'application/pdf'})});flash('ok','Saved as '+fname+'. Send it to TBI admissions with your application.');}
+  catch(e){if(e&&e.code==='declined')flash('warn','Save cancelled.');else if(e&&e.code==='rate_limited')flash('warn','A save prompt is already open. Answer it, then try again.');else{console.error(e);flash('err','The PDF could not be saved. '+(e&&e.message?e.message:''));}}
+  btn.disabled=false;};
+dropzone('vfDrop','vfFile',async f=>{const out=$('vfOut');out.innerHTML='Reading…';try{const bytes=new Uint8Array(await f.arrayBuffer());const d=await PDFDocument.load(bytes,{ignoreEncryption:true});const kw=d.getKeywords()||'';const m=kw.match(/tbi-declaration[ ,;]+([A-Za-z0-9+/=]+)/);
+  if(!m){out.innerHTML='<span style="color:var(--coral)">No embedded record found.</span> This PDF was not produced by this tool, or the record was stripped.';return;}
+  const rec=JSON.parse(decodeURIComponent(escape(atob(m[1]))));const recomputed=await documentId(rec.payload);const ok=recomputed===rec.id;const subj=d.getSubject()||'';
+  const rows=[['Recorded ID',rec.id],['Recomputed from record',recomputed],['Subject field',subj],['Name',rec.payload.name],['Company',rec.payload.company],['Industry',rec.payload.industry],['Years',rec.payload.years],['Designation',rec.payload.role],['Cohort · place · date',rec.payload.cohort+' · '+rec.payload.place+' · '+fmtDate(rec.payload.date)],['Signature digest',rec.payload.sig?rec.payload.sig.slice(0,16)+'…':'none'],['Stamp digest',rec.payload.stamp?rec.payload.stamp.slice(0,16)+'…':'none'],['Letterhead digest',rec.payload.lh?rec.payload.lh.slice(0,16)+'…':'plain A4']];
+  out.innerHTML=(ok?'<span style="color:var(--green);font-weight:600">Record is internally consistent.</span> Compare the fields below with the printed letter and the ID in its footer.':'<span style="color:var(--coral);font-weight:600">Record does not match its ID.</span> The embedded record was altered after generation.')+'<table>'+rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+String(r[1]).replace(/</g,'&lt;')+'</td></tr>').join('')+'</table>';}
+  catch(e){out.innerHTML='<span style="color:var(--coral)">Could not read that PDF.</span> '+(e.message||'');}});
+
+/* ---------- phone signing handoff (shared database) ---------- */
+let dbP=null;const getDb=()=>dbP||(dbP=(window.claude&&window.claude.use?window.claude.use('db'):Promise.resolve(null)).catch(()=>null));
+let pairUnsub=null;
+function randCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';const r=new Uint8Array(6);crypto.getRandomValues(r);for(const b of r)s+=A[b%A.length];return s;}
+window.newPairCode=()=>{S.pairCode=randCode();save();startPairing();};
+async function startPairing(){if(!S.pairCode){S.pairCode=randCode();save();}$('pairCode').textContent=S.pairCode;
+  const q=$('qr');q.innerHTML='';try{new QRCode(q,{text:PAGE_URL+'#sign='+S.pairCode,width:152,height:152,colorDark:'#091E3D',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}catch(e){q.textContent='QR unavailable';}
+  if(pairUnsub){pairUnsub();pairUnsub=null;}const db=await getDb();if(!db){startRelay(S.pairCode);return;}
+  $('pairStatus').textContent='Waiting for the phone…';const ref=db.doc('handoff/'+S.pairCode);
+  pairUnsub=ref.onSnapshot(async snap=>{const d=snap.exists?snap.data():null;if(d&&d.sig&&typeof d.sig==='string'&&d.sig.startsWith('data:image/png;base64,')){setSig(d.sig);$('pairStatus').textContent='Signature received from the phone.';try{await ref.delete();}catch(e){}if(pairUnsub){pairUnsub();pairUnsub=null;}}},
+    err=>{$('pairStatus').textContent='Connection lost. Press "New code" to retry.';});}
+
+/* relay transport (no database): strokes travel as small JSON chunks, never cached on the relay */
+let relayES=null;
+function startRelay(code){if(relayES){relayES.close();relayES=null;}const chunks={};let total=0;$('pairStatus').textContent='Waiting for the phone…';
+  try{relayES=new EventSource(RELAY+'/'+relayTopic(code)+'/sse');}catch(e){$('pairStatus').textContent='Relay unavailable on this network.';return;}
+  relayES.onmessage=e=>{try{const env=JSON.parse(e.data);if(env.event&&env.event!=='message')return;const m=JSON.parse(env.message);
+    if(m.t==='hello'){$('pairStatus').textContent='Phone connected. Waiting for the signature…';return;}
+    if(m.t==='sig'){chunks[m.seq]=m.d;total=m.total;if(Object.keys(chunks).length===total){const json=Array.from({length:total},(_,i)=>chunks[i+1]).join('');const strokes=JSON.parse(json);try{setSig(strokesToPng(strokes));$('pairStatus').textContent='Signature received from the phone.';relayES.close();relayES=null;}catch(e2){$('pairStatus').textContent='A signature arrived but could not be read. Ask the phone to clear and sign again.';for(const k in chunks)delete chunks[k];}}}}catch(err){}};
+  relayES.onerror=()=>{if(relayES)$('pairStatus').textContent='Relay connection interrupted; reconnecting…';};
+  pairUnsub=()=>{if(relayES){relayES.close();relayES=null;}};}
+async function relayPost(code,obj){const r=await fetch(RELAY+'/'+relayTopic(code),{method:'POST',headers:{'Cache':'no','Firebase':'no'},body:JSON.stringify(obj)});if(!r.ok)throw new Error('relay '+r.status);}
+async function relaySendStrokes(code,strokes){const json=JSON.stringify(strokes);const size=3000;const total=Math.ceil(json.length/size);for(let i=0;i<total;i++)await relayPost(code,{t:'sig',seq:i+1,total,d:json.slice(i*size,(i+1)*size)});}
+function strokesToPng(o){if(!o||!Number.isFinite(o.h)||!Array.isArray(o.s)||!o.s.length)throw new Error('bad strokes');const cw=1200,ch=Math.max(60,Math.round(cw*o.h/1000));const c=document.createElement('canvas');c.width=cw;c.height=ch;const x=c.getContext('2d');const k=cw/1000;x.lineCap='round';x.lineJoin='round';x.strokeStyle='#0B1F4A';x.lineWidth=Math.max(3,2.6*k*(1000/o.w));
+  for(const s of o.s){if(s.length<2)continue;x.beginPath();x.moveTo(s[0]*k,s[1]*k);if(s.length===2)x.lineTo(s[0]*k+.1,s[1]*k);for(let i=2;i<s.length;i+=2)x.lineTo(s[i]*k,s[i+1]*k);x.stroke();}
+  return trimCanvas(c).toDataURL('image/png');}
+
+/* phone side */
+const php=$('phpad'),phc=php.getContext('2d');let phDraw=false,phLast=null,phDirty=false,phStrokes=[];
+const phDims=()=>{const r=php.getBoundingClientRect();const dpr=window.devicePixelRatio||1;const w=r.width||php.width/dpr||1,h=r.height||php.height/dpr||1;return {w,h};};
+const phQ=p=>{const {w}=phDims();return [Math.round(p.x/w*1000),Math.round(p.y/w*1000)];};
+function phSize(){const r=php.parentElement.getBoundingClientRect();if(!r.width)return;const dpr=window.devicePixelRatio||1;php.width=r.width*dpr;php.height=r.height*dpr;phc.setTransform(dpr,0,0,dpr,0,0);phc.lineCap='round';phc.lineJoin='round';phc.strokeStyle='#0B1F4A';phc.lineWidth=2.6;phDirty=false;phStrokes=[];}
+new ResizeObserver(phSize).observe(php.parentElement);
+const phPos=e=>{const r=php.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};};
+php.addEventListener('pointerdown',e=>{phDraw=true;phLast=phPos(e);php.setPointerCapture(e.pointerId);phc.beginPath();phc.moveTo(phLast.x,phLast.y);phc.lineTo(phLast.x+.1,phLast.y);phc.stroke();phDirty=true;phStrokes.push(phQ(phLast));});
+php.addEventListener('pointermove',e=>{if(!phDraw)return;const p=phPos(e);phc.beginPath();phc.moveTo(phLast.x,phLast.y);phc.lineTo(p.x,p.y);phc.stroke();phLast=p;const s=phStrokes[phStrokes.length-1];if(s)s.push(...phQ(p));});
+['pointerup','pointercancel','pointerleave'].forEach(ev=>php.addEventListener(ev,()=>{phDraw=false;}));
+$('phClear').addEventListener('click',()=>{phc.clearRect(0,0,php.width,php.height);phDirty=false;phStrokes=[];});
+$('phCode').addEventListener('input',()=>{const c=$('phCode').value.trim().toUpperCase();if(c.length===6)phHello(c);});
+let phHelloSent='';async function phHello(code){if(phHelloSent===code)return;phHelloSent=code;const db=await getDb();if(db)return;try{await relayPost(code,{t:'hello'});}catch(e){}}
+function phFlash(k,m){const n=$('phNotice');n.className='notice show '+k;n.textContent=m;}
+$('phSend').addEventListener('click',async()=>{const code=$('phCode').value.trim().toUpperCase();if(code.length!==6){phFlash('warn','Enter the 6-character code from the desktop.');return;}if(!phDirty){phFlash('warn','Sign in the box first.');return;}
+  const db=await getDb();try{$('phSend').disabled=true;
+    if(db){const sig=trimCanvas(php).toDataURL('image/png');await db.doc('handoff/'+code).set({sig,at:new Date().toISOString()});}
+    else{const {w,h}=phDims();const s=phStrokes.filter(st=>st.length>=2&&st.every(Number.isFinite));if(!s.length)throw Object.assign(new Error('empty'),{code:'empty'});await relaySendStrokes(code,{w:1000,h:Math.round(h/w*1000),s});}
+    phFlash('ok','Sent. Return to your computer; the signature is already on the preview.');}
+  catch(e){phFlash('err','Could not send ('+(e&&e.code||'error')+'). Check the code and try again.');}$('phSend').disabled=false;});
+function enterPhone(code){document.body.classList.add('phone');if(code){$('phCode').value=code;phHello(code);}setTimeout(phSize,50);}
+$('phoneLink').addEventListener('click',e=>{e.preventDefault();enterPhone('');});
+$('phExit').addEventListener('click',e=>{e.preventDefault();document.body.classList.remove('phone');});
+
+window.resetAll=()=>{if(!confirm('Clear all entries, the letterhead, signature and stamp?'))return;try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+':lh');}catch(e){}location.reload();};
+
+/* ---------- boot ---------- */
+load();
+['name','company','industry','years','role','place','date'].forEach(k=>$(k).value=S[k]||'');
+if(!S.date){S.date=todayISO();$('date').value=S.date;}
+$('typedPrev').textContent=S.name||'Your name';
+setPaper(S.paper);if(S.lhBytes)showLhCard(0);
+if(S.sigData){$('sigPrev').hidden=false;$('sigImg').src=S.sigData;}
+if(S.stData){$('stPrev').hidden=false;$('stImg').src=S.stData;stRaw=S.stData;}
+setCohort(S.cohort||'Jeddah');
+sigTab(S.sigTab||'draw');
+const hashCode=()=>{const m=(location.hash||'').match(/sign=([A-Za-z0-9]{6})/);return m?m[1].toUpperCase():'';};if(hashCode())enterPhone(hashCode());window.addEventListener('hashchange',()=>{const c=hashCode();if(c)enterPhone(c);});
+markSteps();render();
+})();
+</script>
